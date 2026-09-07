@@ -9,41 +9,51 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0d1520;
-    --panel:#121f30;
-    --line:#24384f;
-    --line-soft:#1a2c3f;
-    --text:#dce6f0;
+    --bg:#0b121c;
+    --panel:#111e2f;
+    --line:#263c56;
+    --line-soft:#182b40;
+    --text:#dde7f1;
     --text-dim:#8ca0b8;
-    --amber:#e8a33d;
+    --amber:#eaa73f;
     --teal:#4fb6a6;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    background:var(--bg);
+    background:
+      radial-gradient(circle at 1px 1px, rgba(220,230,240,0.05) 1px, transparent 0) 0 0/28px 28px,
+      var(--bg);
     color:var(--text);
     font-family:'Space Grotesk',sans-serif;
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
+    min-height:100vh;
   }
   .mono{font-family:'IBM Plex Mono',monospace;}
   a{color:inherit;}
-  ::selection{background:var(--amber);color:#0d1520;}
+  ::selection{background:var(--amber);color:#0b121c;}
 
-  /* focus visibility */
-  a:focus-visible, button:focus-visible, summary:focus-visible{
+  a:focus-visible, button:focus-visible{
     outline:2px solid var(--amber);
     outline-offset:3px;
   }
 
   .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
 
-  /* header */
+  /* scroll progress */
+  .progress{
+    position:fixed;top:0;left:0;height:2px;
+    background:var(--amber);
+    width:0%;
+    z-index:40;
+    transition:width .1s linear;
+  }
+
   header{
     position:sticky;top:0;z-index:10;
-    background:rgba(13,21,32,0.92);
-    backdrop-filter:blur(6px);
+    background:rgba(11,18,28,0.88);
+    backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line-soft);
   }
   header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
@@ -55,18 +65,32 @@
     color:var(--text-dim);
     text-decoration:none;
     transition:color .15s ease;
+    position:relative;
+  }
+  header nav a::after{
+    content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+    background:var(--amber);transition:width .2s ease;
   }
   header nav a:hover{color:var(--amber);}
+  header nav a:hover::after{width:100%;}
 
   /* hero */
-  .hero{padding:64px 0 56px;border-bottom:1px solid var(--line-soft);}
+  .hero{padding:64px 0 44px;border-bottom:1px solid var(--line-soft);}
   .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;}
   .kicker{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
     color:var(--teal);
     margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:2px;
   }
+  .cursor{
+    display:inline-block;width:7px;height:13px;background:var(--teal);
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
   h1{
     font-size:clamp(32px,5vw,44px);
     font-weight:700;
@@ -85,7 +109,7 @@
     max-width:46ch;
     margin-bottom:26px;
   }
-  .hero-links{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-links{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
   .btn{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
@@ -93,38 +117,50 @@
     border:1px solid var(--line);
     text-decoration:none;
     color:var(--text);
-    transition:border-color .15s ease, color .15s ease;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
     display:inline-block;
+    background:transparent;
+    cursor:pointer;
   }
   .btn:hover{border-color:var(--amber);color:var(--amber);}
   .btn.primary{border-color:var(--amber);color:var(--amber);}
-  .btn.primary:hover{background:var(--amber);color:#0d1520;}
+  .btn.primary:hover{background:var(--amber);color:#0b121c;}
+
+  .stat-bar{
+    display:flex;gap:28px;flex-wrap:wrap;
+    padding-top:22px;border-top:1px solid var(--line-soft);
+  }
+  .stat{font-family:'IBM Plex Mono',monospace;}
+  .stat .num{font-size:22px;color:var(--amber);font-weight:500;}
+  .stat .label{font-size:11.5px;color:var(--text-dim);}
 
   /* radar scope */
   .scope-wrap{display:flex;justify-content:center;}
   .scope{position:relative;width:230px;height:230px;}
-  .scope svg{width:100%;height:100%;}
+  .scope svg{width:100%;height:100%;overflow:visible;}
   .scope-ring{fill:none;stroke:var(--line);stroke-width:1;}
   .scope-crosshair{stroke:var(--line-soft);stroke-width:1;}
-  .sweep-group{transform-origin:115px 115px;animation:sweep 6s linear infinite;}
+  .sweep-group{
+    transform-origin:115px 115px;
+    animation:sweep 7s linear infinite;
+    transition:transform .5s ease-out;
+  }
+  .sweep-group.locked{animation-play-state:paused;}
   @media (prefers-reduced-motion: reduce){
     .sweep-group{animation:none;}
-    .blip{animation:none !important;opacity:.9;}
+    .blip{animation:none !important;opacity:.85;}
   }
   @keyframes sweep{
     from{transform:rotate(0deg);}
     to{transform:rotate(360deg);}
   }
-  .sweep-line{
-    stroke:var(--teal);
-    stroke-width:1.5;
-    opacity:0.9;
-  }
+  .sweep-line{stroke:var(--teal);stroke-width:1.5;opacity:0.9;}
   .sweep-fade{fill:url(#sweepGradient);}
-  .blip{fill:var(--amber);}
-  .blip.b1{animation:ping 6s linear infinite; animation-delay:0.05s;}
-  .blip.b2{animation:ping 6s linear infinite; animation-delay:2.15s;}
-  .blip.b3{animation:ping 6s linear infinite; animation-delay:4.35s;}
+  .blip{fill:var(--amber);transition:r .25s ease, opacity .25s ease;}
+  .blip.b1{animation:ping 7s linear infinite; animation-delay:0.05s;}
+  .blip.b2{animation:ping 7s linear infinite; animation-delay:2.4s;}
+  .blip.b3{animation:ping 7s linear infinite; animation-delay:4.85s;}
+  .blip.active{opacity:1 !important;r:6;filter:drop-shadow(0 0 5px var(--amber));}
   @keyframes ping{
     0%{opacity:0;}
     2%{opacity:1;}
@@ -135,6 +171,7 @@
     font-family:'IBM Plex Mono',monospace;
     font-size:11px;
     fill:var(--text-dim);
+    transition:fill .2s ease;
   }
 
   /* section headings */
@@ -153,26 +190,28 @@
   }
 
   /* project rows */
-  .project{
-    border-top:1px solid var(--line-soft);
-  }
+  .project{border-top:1px solid var(--line-soft);transition:background .2s ease;}
   .project:last-child{border-bottom:1px solid var(--line-soft);}
-  .project summary{
-    list-style:none;
+  .project.hovered{background:rgba(234,167,63,0.04);}
+  .project-summary-btn{
+    all:unset;
+    box-sizing:border-box;
+    width:100%;
     cursor:pointer;
-    padding:22px 0;
+    padding:22px 4px;
     display:grid;
     grid-template-columns:32px 1fr auto;
     gap:18px;
     align-items:start;
   }
-  .project summary::-webkit-details-marker{display:none;}
   .project-index{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
     color:var(--text-dim);
     padding-top:3px;
+    transition:color .2s ease;
   }
+  .project.hovered .project-index{color:var(--amber);}
   .project-name{font-size:18px;font-weight:600;margin-bottom:6px;}
   .project-summary{font-size:14px;color:var(--text-dim);max-width:56ch;}
   .project-toggle{
@@ -182,11 +221,19 @@
     padding-top:4px;
     white-space:nowrap;
   }
-  .project[open] .project-toggle .plus{display:none;}
-  .project:not([open]) .project-toggle .minus{display:none;}
+  .project-toggle .minus{display:none;}
+  .project.open .project-toggle .plus{display:none;}
+  .project.open .project-toggle .minus{display:inline;}
 
+  .project-collapse{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .35s ease;
+  }
+  .project.open .project-collapse{grid-template-rows:1fr;}
+  .project-collapse-inner{overflow:hidden;}
   .project-body{
-    padding:0 0 28px 50px;
+    padding:0 4px 28px 50px;
     display:grid;
     gap:18px;
   }
@@ -198,7 +245,9 @@
     padding:4px 9px;
     border:1px solid var(--line);
     color:var(--text-dim);
+    transition:border-color .15s ease, color .15s ease;
   }
+  .tag:hover{border-color:var(--teal);color:var(--teal);}
   .project-links{display:flex;gap:14px;flex-wrap:wrap;}
   .project-links a{
     font-family:'IBM Plex Mono',monospace;
@@ -225,19 +274,27 @@
   footer .wrap{display:flex;flex-direction:column;gap:10px;}
   footer .foot-title{font-size:19px;font-weight:600;margin-bottom:6px;}
   footer .foot-desc{font-size:14px;color:var(--text-dim);max-width:50ch;margin-bottom:18px;}
-  .foot-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .foot-links{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+  .copy-note{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--teal);
+    opacity:0;
+    transition:opacity .2s ease;
+  }
+  .copy-note.show{opacity:1;}
 
   @media (max-width:720px){
     .hero-grid{grid-template-columns:1fr;}
     .scope-wrap{order:-1;margin-bottom:8px;}
     .scope{width:170px;height:170px;}
-    .project summary{grid-template-columns:24px 1fr;}
-    .project-toggle{grid-column:1/-1;padding-top:0;}
-    .project-body{padding-left:0;}
+    .stat-bar{gap:20px;}
   }
 </style>
 </head>
 <body>
+
+<div class="progress" id="progress"></div>
 
 <header>
   <div class="wrap">
@@ -254,7 +311,7 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="kicker mono">/// signal acquired</div>
+        <div class="kicker mono">/// signal acquired<span class="cursor"></span></div>
         <h1>Kaustubh Patil</h1>
         <div class="title-line">Development Engineer — Automotive Systems &amp; Robotics</div>
         <p class="hero-desc">
@@ -267,10 +324,15 @@
           <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
         </div>
+        <div class="stat-bar">
+          <div class="stat"><div class="num" data-count="3">0</div><div class="label">repositories</div></div>
+          <div class="stat"><div class="num" data-count="33">0</div><div class="label">commits logged</div></div>
+          <div class="stat"><div class="num" data-count="9">0</div><div class="label">technologies used</div></div>
+        </div>
       </div>
 
       <div class="scope-wrap">
-        <div class="scope" role="img" aria-label="Radar scope illustration with three detected signals, representing three featured projects">
+        <div class="scope" role="img" aria-label="Radar scope with three signals, linked to the three projects below — hover a project to highlight its signal">
           <svg viewBox="0 0 230 230">
             <defs>
               <radialGradient id="sweepGradient" cx="0%" cy="0%" r="100%">
@@ -284,16 +346,16 @@
             <line class="scope-crosshair" x1="15" y1="115" x2="215" y2="115"/>
             <line class="scope-crosshair" x1="115" y1="15" x2="115" y2="215"/>
 
-            <g class="sweep-group">
+            <g class="sweep-group" id="sweepGroup">
               <path class="sweep-fade" d="M115,115 L115,15 A100,100 0 0,1 185.4,44.6 Z"/>
               <line class="sweep-line" x1="115" y1="115" x2="115" y2="15"/>
             </g>
 
-            <circle class="blip b1" cx="160" cy="70" r="4"/>
-            <circle class="blip b2" cx="70" cy="150" r="4"/>
-            <circle class="blip b3" cx="165" cy="160" r="4"/>
+            <circle class="blip" id="blip-1" data-project="1" cx="160" cy="70" r="4"/>
+            <circle class="blip" id="blip-2" data-project="2" cx="70" cy="150" r="4"/>
+            <circle class="blip" id="blip-3" data-project="3" cx="165" cy="160" r="4"/>
 
-            <text class="scope-label" x="115" y="205" text-anchor="middle">3 PROJECTS DETECTED</text>
+            <text class="scope-label" id="scopeLabel" x="115" y="205" text-anchor="middle">3 PROJECTS DETECTED</text>
           </svg>
         </div>
       </div>
@@ -307,99 +369,105 @@
         <span class="section-count mono">03 repositories</span>
       </div>
 
-      <details class="project" open>
-        <summary>
+      <div class="project open" data-project="1">
+        <button class="project-summary-btn" aria-expanded="true">
           <span class="project-index mono">01</span>
           <span>
             <div class="project-name">V2X CPM Perception &amp; Visualization Pipeline</div>
             <div class="project-summary">A ROS pipeline that parses radar data as ETSI ITS Collective Perception Messages, filters false detections, and renders the result live in RViz.</div>
           </span>
           <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
-        </summary>
-        <div class="project-body">
-          <p>
-            Built as the perception stage of a four-part university V2X project. Radar data — either
-            from a live perception-kit topic or recorded rosbag files — is parsed against roughly 130
-            custom ROS message definitions aligned to the ETSI ITS CPM standard, then filtered by
-            confidence score and distance to reject phantom detections before being drawn as
-            classified object markers (car, pedestrian) against an ego-vehicle model in RViz.
-          </p>
-          <img class="project-image" src="https://github.com/Kaustubh3197/v2x-cpm-perception/raw/main/docs/rviz_visualization.png" alt="RViz visualization comparing unfiltered radar detections to filtered, classified output" loading="lazy">
-          <div class="project-image-caption">Left: unfiltered detections. Right: filtered output classified as cars and pedestrians.</div>
-          <div class="tag-row">
-            <span class="tag">ROS Melodic</span>
-            <span class="tag">Python</span>
-            <span class="tag">RViz</span>
-            <span class="tag">ETSI ITS CPM</span>
-            <span class="tag">rosbag</span>
+        </button>
+        <div class="project-collapse"><div class="project-collapse-inner">
+          <div class="project-body">
+            <p>
+              Built as the perception stage of a four-part university V2X project. Radar data — either
+              from a live perception-kit topic or recorded rosbag files — is parsed against roughly 130
+              custom ROS message definitions aligned to the ETSI ITS CPM standard, then filtered by
+              confidence score and distance to reject phantom detections before being drawn as
+              classified object markers (car, pedestrian) against an ego-vehicle model in RViz.
+            </p>
+            <img class="project-image" src="https://github.com/Kaustubh3197/v2x-cpm-perception/raw/main/docs/rviz_visualization.png" alt="RViz visualization comparing unfiltered radar detections to filtered, classified output" loading="lazy">
+            <div class="project-image-caption">Left: unfiltered detections. Right: filtered output classified as cars and pedestrians.</div>
+            <div class="tag-row">
+              <span class="tag">ROS Melodic</span>
+              <span class="tag">Python</span>
+              <span class="tag">RViz</span>
+              <span class="tag">ETSI ITS CPM</span>
+              <span class="tag">rosbag</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Kaustubh3197/v2x-cpm-perception" target="_blank" rel="noopener">View repository</a>
+              <a href="https://github.com/Kaustubh3197/v2x-cpm-perception/blob/main/docs/V2X_Team4_Presentation.pdf" target="_blank" rel="noopener">Project presentation (PDF)</a>
+            </div>
           </div>
-          <div class="project-links">
-            <a href="https://github.com/Kaustubh3197/v2x-cpm-perception" target="_blank" rel="noopener">View repository</a>
-            <a href="https://github.com/Kaustubh3197/v2x-cpm-perception/blob/main/docs/V2X_Team4_Presentation.pdf" target="_blank" rel="noopener">Project presentation (PDF)</a>
-          </div>
-        </div>
-      </details>
+        </div></div>
+      </div>
 
-      <details class="project">
-        <summary>
+      <div class="project" data-project="2">
+        <button class="project-summary-btn" aria-expanded="false">
           <span class="project-index mono">02</span>
           <span>
             <div class="project-name">Middleware Comparison for ADAS / SDV — Master's Thesis</div>
             <div class="project-summary">Benchmarking OpenDDS, vsomeip, and Zenoh against an identical simulated ADAS workload to compare in-vehicle communication middleware.</div>
           </span>
           <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
-        </summary>
-        <div class="project-body">
-          <p>
-            Eight in-vehicle communication protocols were first scored with a multi-criteria
-            decision analysis across latency, determinism, QoS support, and ecosystem maturity.
-            DDS, SOME/IP, and Zenoh came out ahead and were carried into full proof-of-concept
-            implementations — the same seven-node ADAS scenario, data schema, and timing budgets
-            reproduced identically on all three, so any performance differences trace back to the
-            middleware itself rather than the application logic.
-          </p>
-          <div class="tag-row">
-            <span class="tag">OpenDDS</span>
-            <span class="tag">vsomeip / SOME-IP</span>
-            <span class="tag">Eclipse Zenoh</span>
-            <span class="tag">MCDA</span>
-            <span class="tag">C++</span>
+        </button>
+        <div class="project-collapse"><div class="project-collapse-inner">
+          <div class="project-body">
+            <p>
+              Eight in-vehicle communication protocols were first scored with a multi-criteria
+              decision analysis across latency, determinism, QoS support, and ecosystem maturity.
+              DDS, SOME/IP, and Zenoh came out ahead and were carried into full proof-of-concept
+              implementations — the same seven-node ADAS scenario, data schema, and timing budgets
+              reproduced identically on all three, so any performance differences trace back to the
+              middleware itself rather than the application logic.
+            </p>
+            <div class="tag-row">
+              <span class="tag">OpenDDS</span>
+              <span class="tag">vsomeip / SOME-IP</span>
+              <span class="tag">Eclipse Zenoh</span>
+              <span class="tag">MCDA</span>
+              <span class="tag">C++</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a>
+            </div>
           </div>
-          <div class="project-links">
-            <a href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a>
-          </div>
-        </div>
-      </details>
+        </div></div>
+      </div>
 
-      <details class="project">
-        <summary>
+      <div class="project" data-project="3">
+        <button class="project-summary-btn" aria-expanded="false">
           <span class="project-index mono">03</span>
           <span>
             <div class="project-name">Gesture-Control &amp; Obstacle-Avoiding Car</div>
             <div class="project-summary">An Arduino build with two independent circuits — an accelerometer-and-RF433 gesture remote, and a standalone ultrasonic obstacle-avoidance mode.</div>
           </span>
           <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
-        </summary>
-        <div class="project-body">
-          <p>
-            A hand-worn glove reads tilt from an accelerometer and encodes it over RF433 to a
-            receiver on the car, which decodes the signal directly into a motor driver — no
-            microcontroller needed on that side. A separate ultrasonic circuit sweeps a
-            servo-mounted sensor to detect and steer around obstacles autonomously. Debugged and
-            corrected two dead gesture states left over from the original build, where impossible
-            numeric thresholds meant "backward" and "right" never registered.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Arduino / C++</span>
-            <span class="tag">RF433</span>
-            <span class="tag">ADXL335</span>
-            <span class="tag">Embedded Systems</span>
+        </button>
+        <div class="project-collapse"><div class="project-collapse-inner">
+          <div class="project-body">
+            <p>
+              A hand-worn glove reads tilt from an accelerometer and encodes it over RF433 to a
+              receiver on the car, which decodes the signal directly into a motor driver — no
+              microcontroller needed on that side. A separate ultrasonic circuit sweeps a
+              servo-mounted sensor to detect and steer around obstacles autonomously. Debugged and
+              corrected two dead gesture states left over from the original build, where impossible
+              numeric thresholds meant "backward" and "right" never registered.
+            </p>
+            <div class="tag-row">
+              <span class="tag">Arduino / C++</span>
+              <span class="tag">RF433</span>
+              <span class="tag">ADXL335</span>
+              <span class="tag">Embedded Systems</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Kaustubh3197/gesture-control-obstacle-avoiding-car" target="_blank" rel="noopener">View repository</a>
+            </div>
           </div>
-          <div class="project-links">
-            <a href="https://github.com/Kaustubh3197/gesture-control-obstacle-avoiding-car" target="_blank" rel="noopener">View repository</a>
-          </div>
-        </div>
-      </details>
+        </div></div>
+      </div>
 
     </div>
   </section>
@@ -411,11 +479,139 @@
       <div class="foot-links">
         <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
+        <button class="btn" id="copyLinkedin">Copy LinkedIn URL</button>
+        <span class="copy-note mono" id="copyNote">copied</span>
       </div>
     </div>
   </footer>
 
 </main>
+
+<script>
+(function(){
+  // scroll progress bar
+  var progress = document.getElementById('progress');
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop;
+    var max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (scrolled / max) * 100 : 0) + '%';
+  }
+  document.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  // stat counters, animate once visible
+  var counted = false;
+  function animateCounters(){
+    if(counted) return;
+    counted = true;
+    document.querySelectorAll('.num').forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var start = 0;
+      var duration = 900;
+      var startTime = null;
+      function step(ts){
+        if(!startTime) startTime = ts;
+        var progressRatio = Math.min((ts - startTime) / duration, 1);
+        el.textContent = Math.floor(progressRatio * target);
+        if(progressRatio < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var statBar = document.querySelector('.stat-bar');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) animateCounters(); });
+    }, {threshold:0.4});
+    if(statBar) io.observe(statBar);
+  } else {
+    animateCounters();
+  }
+
+  // radar <-> project linking
+  var sweepGroup = document.getElementById('sweepGroup');
+  var scopeLabel = document.getElementById('scopeLabel');
+  var blips = {
+    '1': document.getElementById('blip-1'),
+    '2': document.getElementById('blip-2'),
+    '3': document.getElementById('blip-3')
+  };
+  var blipAngles = {}; // precompute angle from center (115,115) to each blip, 12 o'clock = 0deg
+  Object.keys(blips).forEach(function(key){
+    var b = blips[key];
+    var cx = parseFloat(b.getAttribute('cx'));
+    var cy = parseFloat(b.getAttribute('cy'));
+    var dx = cx - 115, dy = cy - 115;
+    var angleFromUp = Math.atan2(dx, -dy) * (180/Math.PI);
+    blipAngles[key] = angleFromUp;
+  });
+
+  var projectNames = {
+    '1': 'V2X CPM PERCEPTION',
+    '2': 'MIDDLEWARE THESIS',
+    '3': 'GESTURE CONTROL CAR'
+  };
+
+  function lockRadarTo(id){
+    sweepGroup.classList.add('locked');
+    sweepGroup.style.transform = 'rotate(' + blipAngles[id] + 'deg)';
+    blips[id].classList.add('active');
+    scopeLabel.textContent = projectNames[id];
+  }
+  function unlockRadar(){
+    sweepGroup.classList.remove('locked');
+    sweepGroup.style.transform = '';
+    Object.values(blips).forEach(function(b){ b.classList.remove('active'); });
+    scopeLabel.textContent = '3 PROJECTS DETECTED';
+  }
+
+  document.querySelectorAll('.project').forEach(function(project){
+    var id = project.getAttribute('data-project');
+    var btn = project.querySelector('.project-summary-btn');
+
+    project.addEventListener('mouseenter', function(){
+      project.classList.add('hovered');
+      lockRadarTo(id);
+    });
+    project.addEventListener('mouseleave', function(){
+      project.classList.remove('hovered');
+      unlockRadar();
+    });
+    project.addEventListener('focusin', function(){
+      lockRadarTo(id);
+    });
+    project.addEventListener('focusout', function(){
+      unlockRadar();
+    });
+
+    btn.addEventListener('click', function(){
+      var isOpen = project.classList.contains('open');
+      project.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // copy linkedin url
+  var copyBtn = document.getElementById('copyLinkedin');
+  var copyNote = document.getElementById('copyNote');
+  if(copyBtn){
+    copyBtn.addEventListener('click', function(){
+      var url = 'https://www.linkedin.com/in/kaustubh-prakash-patil';
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(showCopied, showCopied);
+      } else {
+        showCopied();
+      }
+    });
+  }
+  function showCopied(){
+    copyNote.classList.add('show');
+    setTimeout(function(){ copyNote.classList.remove('show'); }, 1600);
+  }
+})();
+</script>
 
 </body>
 </html>
