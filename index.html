@@ -101,15 +101,21 @@
     color:var(--ink);
   }
   .title-line{
-    font-size:17px;
+    font-size:clamp(12.5px,2.4vw,17px);
     color:var(--ink-dim);
     margin-bottom:20px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
   .hero-desc{
     font-size:15.5px;
     color:var(--ink-dim);
     max-width:48ch;
     margin-bottom:26px;
+    text-align:justify;
+    text-justify:inter-word;
+    hyphens:auto;
   }
   .hero-links{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px;}
   .btn{
@@ -127,14 +133,6 @@
   .btn:hover{border-color:var(--teal);color:var(--teal);}
   .btn.primary{border-color:var(--teal);color:#fff;background:var(--teal);}
   .btn.primary:hover{background:#185f54;border-color:#185f54;color:#fff;}
-
-  .stat-bar{
-    display:flex;gap:28px;flex-wrap:wrap;
-    padding-top:20px;border-top:1px solid var(--line);
-  }
-  .stat{font-family:'IBM Plex Mono',monospace;}
-  .stat .num{font-size:22px;color:var(--teal);font-weight:500;}
-  .stat .label{font-size:11.5px;color:var(--ink-dim);}
 
   /* radar scope */
   .scope-wrap{display:flex;justify-content:center;}
@@ -177,18 +175,35 @@
   }
 
   /* about strip */
-  .about{padding:40px 0;border-bottom:1px solid var(--line);}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
-  .about h3{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--teal);margin-bottom:10px;}
-  .about p{font-size:14.5px;color:var(--ink-dim);max-width:52ch;}
-  .skill-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .about{padding:44px 0;border-bottom:1px solid var(--line);}
+  .about-panel{
+    border:1px solid var(--line-strong);
+    border-left:3px solid var(--teal);
+    background:#fff;
+    padding:32px 36px;
+  }
+  .about-kicker{
+    font-size:12px;
+    color:var(--teal);
+    margin-bottom:22px;
+  }
+  .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:44px;}
+  .about h3{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);margin-bottom:14px;letter-spacing:0.02em;}
+  .about p{font-size:14.5px;color:var(--ink-dim);max-width:52ch;text-align:justify;text-justify:inter-word;hyphens:auto;}
+  .skill-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;}
   .pill{
     font-family:'IBM Plex Mono',monospace;
     font-size:12px;
-    padding:5px 10px;
+    padding:6px 11px;
     background:var(--panel);
     border:1px solid var(--line);
-    color:var(--ink);
+    color:var(--ink-dim);
+  }
+  .pill-primary{
+    background:var(--teal-soft);
+    border-color:var(--teal);
+    color:var(--teal);
+    font-weight:500;
   }
 
   /* section headings */
@@ -230,7 +245,7 @@
   }
   .project.hovered .project-index{color:var(--teal);}
   .project-name{font-size:18px;font-weight:600;margin-bottom:6px;color:var(--ink);}
-  .project-summary{font-size:14px;color:var(--ink-dim);max-width:56ch;}
+  .project-summary{font-size:14px;color:var(--ink-dim);max-width:56ch;text-align:justify;text-justify:inter-word;hyphens:auto;}
   .project-toggle{
     font-family:'IBM Plex Mono',monospace;
     font-size:12px;
@@ -254,7 +269,7 @@
     display:grid;
     gap:16px;
   }
-  .project-body p{font-size:14.5px;color:var(--ink-dim);max-width:60ch;}
+  .project-body p{font-size:14.5px;color:var(--ink-dim);max-width:60ch;text-align:justify;text-justify:inter-word;hyphens:auto;}
   .highlights{display:grid;gap:8px;max-width:60ch;}
   .highlights li{
     list-style:none;
@@ -262,6 +277,10 @@
     color:var(--ink);
     padding-left:18px;
     position:relative;
+    max-width:60ch;
+    text-align:justify;
+    text-justify:inter-word;
+    hyphens:auto;
   }
   .highlights li::before{
     content:'';
@@ -299,29 +318,47 @@
     font-size:11.5px;
     color:var(--ink-dim);
     margin-top:8px;
+    text-align:justify;
+    text-justify:inter-word;
+  }
+
+  /* scroll reveal */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible{
+    opacity:1;
+    transform:none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
   }
 
   /* footer */
-  footer{padding:44px 0 60px;}
-  footer .wrap{display:flex;flex-direction:column;gap:10px;}
-  footer .foot-title{font-size:19px;font-weight:600;margin-bottom:6px;color:var(--ink);}
-  footer .foot-desc{font-size:14px;color:var(--ink-dim);max-width:50ch;margin-bottom:18px;}
-  .foot-links{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
-  .copy-note{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    color:var(--teal);
-    opacity:0;
-    transition:opacity .2s ease;
+  footer{padding:36px 0 52px;}
+  .foot-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
   }
-  .copy-note.show{opacity:1;}
-
+  .foot-line{
+    font-size:15px;
+    color:var(--ink-dim);
+    white-space:nowrap;
+  }
+  .foot-title{font-weight:600;color:var(--ink);}
+  .foot-links{display:flex;gap:16px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
   @media (max-width:720px){
     .hero-grid{grid-template-columns:1fr;}
     .scope-wrap{order:-1;margin-bottom:8px;}
     .scope{width:170px;height:170px;}
-    .stat-bar{gap:20px;}
+    .about-panel{padding:24px 22px;}
     .about-grid{grid-template-columns:1fr;gap:26px;}
+    .foot-line{white-space:normal;}
   }
 </style>
 </head>
@@ -357,11 +394,6 @@
           <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
         </div>
-        <div class="stat-bar">
-          <div class="stat"><div class="num" data-count="3">0</div><div class="label">repositories</div></div>
-          <div class="stat"><div class="num" data-count="33">0</div><div class="label">commits logged</div></div>
-          <div class="stat"><div class="num" data-count="9">0</div><div class="label">technologies used</div></div>
-        </div>
       </div>
 
       <div class="scope-wrap">
@@ -395,26 +427,30 @@
     </div>
   </section>
 
-  <section class="about">
-    <div class="wrap about-grid">
-      <div>
-        <h3>About</h3>
-        <p>
-          I work across the automotive software stack — from bare-metal embedded control
-          to ROS-based perception and the middleware that connects vehicle systems together.
-          My background spans a master's thesis benchmarking in-vehicle communication
-          protocols, a university V2X perception project, and hands-on embedded builds.
-        </p>
-      </div>
-      <div>
-        <h3>Core areas</h3>
-        <div class="skill-pills">
-          <span class="pill">Embedded Systems</span>
-          <span class="pill">ROS / Robotics</span>
-          <span class="pill">In-Vehicle Middleware</span>
-          <span class="pill">C++ / Python</span>
-          <span class="pill">Sensor Perception</span>
-          <span class="pill">V2X Communication</span>
+  <section class="about reveal">
+    <div class="wrap">
+      <div class="about-panel">
+        <div class="about-kicker mono">/// profile</div>
+        <div class="about-grid">
+          <div>
+            <p>
+              My background centers on in-vehicle communication middleware, benchmarked
+              in depth during my master's thesis, alongside ROS-based V2X perception work
+              and hands-on embedded systems builds. Together, they span the full path from
+              a vehicle's sensors to the software that acts on what those sensors detect.
+            </p>
+          </div>
+          <div>
+            <h3>Core areas</h3>
+            <div class="skill-pills">
+              <span class="pill pill-primary">In-Vehicle Middleware</span>
+              <span class="pill pill-primary">V2X Communication</span>
+              <span class="pill">ROS / Robotics</span>
+              <span class="pill">Sensor Perception</span>
+              <span class="pill">Embedded Systems</span>
+              <span class="pill">C++ / Python</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -427,9 +463,46 @@
         <span class="section-count mono">03 repositories</span>
       </div>
 
-      <div class="project open" data-project="1">
+      <div class="project open reveal" data-project="1">
         <button class="project-summary-btn" aria-expanded="true">
           <span class="project-index mono">01</span>
+          <span>
+            <div class="project-name">Middleware Comparison for ADAS / SDV — Master's Thesis</div>
+            <div class="project-summary">Benchmarking OpenDDS, vsomeip, and Zenoh against an identical simulated ADAS workload to compare in-vehicle communication middleware.</div>
+          </span>
+          <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
+        </button>
+        <div class="project-collapse"><div class="project-collapse-inner">
+          <div class="project-body">
+            <p>
+              Eight in-vehicle communication protocols were first scored with a multi-criteria
+              decision analysis across latency, determinism, QoS support, and ecosystem maturity.
+              DDS, SOME/IP, and Zenoh came out ahead and were carried into full proof-of-concept
+              implementations built on an identical simulated ADAS workload.
+            </p>
+            <ul class="highlights">
+              <li>Scored 8 candidate protocols using a multi-criteria decision analysis</li>
+              <li>Built matching proof-of-concept implementations in OpenDDS, vsomeip, and Zenoh</li>
+              <li>Reproduced the same 7-node ADAS scenario and timing budgets across all three, isolating middleware-only performance differences</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">OpenDDS</span>
+              <span class="tag">vsomeip / SOME-IP</span>
+              <span class="tag">Eclipse Zenoh</span>
+              <span class="tag">MCDA</span>
+              <span class="tag">C++</span>
+              <span class="tag">Python</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="project reveal" data-project="2">
+        <button class="project-summary-btn" aria-expanded="false">
+          <span class="project-index mono">02</span>
           <span>
             <div class="project-name">V2X CPM Perception &amp; Visualization Pipeline</div>
             <div class="project-summary">A ROS pipeline that parses radar data as ETSI ITS Collective Perception Messages, filters false detections, and renders the result live in RViz.</div>
@@ -466,43 +539,7 @@
         </div></div>
       </div>
 
-      <div class="project" data-project="2">
-        <button class="project-summary-btn" aria-expanded="false">
-          <span class="project-index mono">02</span>
-          <span>
-            <div class="project-name">Middleware Comparison for ADAS / SDV — Master's Thesis</div>
-            <div class="project-summary">Benchmarking OpenDDS, vsomeip, and Zenoh against an identical simulated ADAS workload to compare in-vehicle communication middleware.</div>
-          </span>
-          <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
-        </button>
-        <div class="project-collapse"><div class="project-collapse-inner">
-          <div class="project-body">
-            <p>
-              Eight in-vehicle communication protocols were first scored with a multi-criteria
-              decision analysis across latency, determinism, QoS support, and ecosystem maturity.
-              DDS, SOME/IP, and Zenoh came out ahead and were carried into full proof-of-concept
-              implementations built on an identical simulated ADAS workload.
-            </p>
-            <ul class="highlights">
-              <li>Scored 8 candidate protocols using a multi-criteria decision analysis</li>
-              <li>Built matching proof-of-concept implementations in OpenDDS, vsomeip, and Zenoh</li>
-              <li>Reproduced the same 7-node ADAS scenario and timing budgets across all three, isolating middleware-only performance differences</li>
-            </ul>
-            <div class="tag-row">
-              <span class="tag">OpenDDS</span>
-              <span class="tag">vsomeip / SOME-IP</span>
-              <span class="tag">Eclipse Zenoh</span>
-              <span class="tag">MCDA</span>
-              <span class="tag">C++</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a>
-            </div>
-          </div>
-        </div></div>
-      </div>
-
-      <div class="project" data-project="3">
+      <div class="project reveal" data-project="3">
         <button class="project-summary-btn" aria-expanded="false">
           <span class="project-index mono">03</span>
           <span>
@@ -526,8 +563,6 @@
             </ul>
             <div class="tag-row">
               <span class="tag">Arduino / C++</span>
-              <span class="tag">RF433</span>
-              <span class="tag">ADXL335</span>
               <span class="tag">Embedded Systems</span>
             </div>
             <div class="project-links">
@@ -540,15 +575,12 @@
     </div>
   </section>
 
-  <footer id="contact">
-    <div class="wrap">
-      <div class="foot-title">Let's talk</div>
-      <p class="foot-desc">Open to conversations about automotive software, embedded systems, and robotics roles.</p>
+  <footer id="contact" class="reveal">
+    <div class="wrap foot-row">
+      <p class="foot-line"><span class="foot-title">Let's talk</span> — open to conversations about automotive software, embedded systems, and robotics roles.</p>
       <div class="foot-links">
         <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
-        <button class="btn" id="copyLinkedin">Copy LinkedIn URL</button>
-        <span class="copy-note mono" id="copyNote">copied</span>
       </div>
     </div>
   </footer>
@@ -567,32 +599,18 @@
   document.addEventListener('scroll', updateProgress, {passive:true});
   updateProgress();
 
-  var counted = false;
-  function animateCounters(){
-    if(counted) return;
-    counted = true;
-    document.querySelectorAll('.num').forEach(function(el){
-      var target = parseInt(el.getAttribute('data-count'), 10);
-      var duration = 900;
-      var startTime = null;
-      function step(ts){
-        if(!startTime) startTime = ts;
-        var r = Math.min((ts - startTime) / duration, 1);
-        el.textContent = Math.floor(r * target);
-        if(r < 1) requestAnimationFrame(step);
-        else el.textContent = target;
-      }
-      requestAnimationFrame(step);
-    });
-  }
   if('IntersectionObserver' in window){
-    var statBar = document.querySelector('.stat-bar');
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting) animateCounters(); });
-    }, {threshold:0.4});
-    if(statBar) io.observe(statBar);
+    var revealIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          revealIO.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ revealIO.observe(el); });
   } else {
-    animateCounters();
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
   }
 
   var sweepGroup = document.getElementById('sweepGroup');
@@ -613,8 +631,8 @@
   });
 
   var projectNames = {
-    '1': 'V2X CPM PERCEPTION',
-    '2': 'MIDDLEWARE THESIS',
+    '1': 'MIDDLEWARE THESIS',
+    '2': 'V2X CPM PERCEPTION',
     '3': 'GESTURE CONTROL CAR'
   };
 
@@ -657,22 +675,6 @@
     });
   });
 
-  var copyBtn = document.getElementById('copyLinkedin');
-  var copyNote = document.getElementById('copyNote');
-  if(copyBtn){
-    copyBtn.addEventListener('click', function(){
-      var url = 'https://www.linkedin.com/in/kaustubh-prakash-patil';
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url).then(showCopied, showCopied);
-      } else {
-        showCopied();
-      }
-    });
-  }
-  function showCopied(){
-    copyNote.classList.add('show');
-    setTimeout(function(){ copyNote.classList.remove('show'); }, 1600);
-  }
 })();
 </script>
 
