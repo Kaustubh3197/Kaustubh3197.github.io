@@ -9,42 +9,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b121c;
-    --panel:#111e2f;
-    --line:#263c56;
-    --line-soft:#182b40;
-    --text:#dde7f1;
-    --text-dim:#8ca0b8;
-    --amber:#eaa73f;
-    --teal:#4fb6a6;
+    --bg:#f5f7f9;
+    --panel:#eef1f4;
+    --line:#d7dee5;
+    --line-strong:#c2cbd4;
+    --ink:#1c2530;
+    --ink-dim:#5b6b7c;
+    --teal:#1f7a6c;
+    --teal-soft:#e4f0ed;
+    --amber:#c9761f;
+    --amber-soft:#fbeee0;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   body{
     background:
-      radial-gradient(circle at 1px 1px, rgba(220,230,240,0.05) 1px, transparent 0) 0 0/28px 28px,
+      radial-gradient(circle at 1px 1px, rgba(28,37,48,0.06) 1px, transparent 0) 0 0/26px 26px,
       var(--bg);
-    color:var(--text);
+    color:var(--ink);
     font-family:'Space Grotesk',sans-serif;
-    line-height:1.5;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
     min-height:100vh;
   }
   .mono{font-family:'IBM Plex Mono',monospace;}
   a{color:inherit;}
-  ::selection{background:var(--amber);color:#0b121c;}
+  ::selection{background:var(--teal);color:#fff;}
 
   a:focus-visible, button:focus-visible{
-    outline:2px solid var(--amber);
+    outline:2px solid var(--teal);
     outline-offset:3px;
   }
 
   .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
 
-  /* scroll progress */
   .progress{
     position:fixed;top:0;left:0;height:2px;
-    background:var(--amber);
+    background:var(--teal);
     width:0%;
     z-index:40;
     transition:width .1s linear;
@@ -52,30 +53,30 @@
 
   header{
     position:sticky;top:0;z-index:10;
-    background:rgba(11,18,28,0.88);
+    background:rgba(245,247,249,0.88);
     backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line);
   }
   header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
-  .brand{font-weight:600;font-size:15px;letter-spacing:0.01em;text-decoration:none;}
+  .brand{font-weight:600;font-size:15px;letter-spacing:0.01em;text-decoration:none;color:var(--ink);}
   header nav{display:flex;gap:28px;}
   header nav a{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
-    color:var(--text-dim);
+    color:var(--ink-dim);
     text-decoration:none;
     transition:color .15s ease;
     position:relative;
   }
   header nav a::after{
     content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
-    background:var(--amber);transition:width .2s ease;
+    background:var(--teal);transition:width .2s ease;
   }
-  header nav a:hover{color:var(--amber);}
+  header nav a:hover{color:var(--teal);}
   header nav a:hover::after{width:100%;}
 
   /* hero */
-  .hero{padding:64px 0 44px;border-bottom:1px solid var(--line-soft);}
+  .hero{padding:60px 0 40px;border-bottom:1px solid var(--line);}
   .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;}
   .kicker{
     font-family:'IBM Plex Mono',monospace;
@@ -97,49 +98,50 @@
     letter-spacing:-0.01em;
     line-height:1.12;
     margin-bottom:10px;
+    color:var(--ink);
   }
   .title-line{
     font-size:17px;
-    color:var(--text-dim);
-    margin-bottom:22px;
+    color:var(--ink-dim);
+    margin-bottom:20px;
   }
   .hero-desc{
-    font-size:15px;
-    color:var(--text-dim);
-    max-width:46ch;
+    font-size:15.5px;
+    color:var(--ink-dim);
+    max-width:48ch;
     margin-bottom:26px;
   }
-  .hero-links{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+  .hero-links{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px;}
   .btn{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
     padding:10px 16px;
-    border:1px solid var(--line);
+    border:1px solid var(--line-strong);
     text-decoration:none;
-    color:var(--text);
+    color:var(--ink);
     transition:border-color .15s ease, color .15s ease, background .15s ease;
     display:inline-block;
-    background:transparent;
+    background:#fff;
     cursor:pointer;
   }
-  .btn:hover{border-color:var(--amber);color:var(--amber);}
-  .btn.primary{border-color:var(--amber);color:var(--amber);}
-  .btn.primary:hover{background:var(--amber);color:#0b121c;}
+  .btn:hover{border-color:var(--teal);color:var(--teal);}
+  .btn.primary{border-color:var(--teal);color:#fff;background:var(--teal);}
+  .btn.primary:hover{background:#185f54;border-color:#185f54;color:#fff;}
 
   .stat-bar{
     display:flex;gap:28px;flex-wrap:wrap;
-    padding-top:22px;border-top:1px solid var(--line-soft);
+    padding-top:20px;border-top:1px solid var(--line);
   }
   .stat{font-family:'IBM Plex Mono',monospace;}
-  .stat .num{font-size:22px;color:var(--amber);font-weight:500;}
-  .stat .label{font-size:11.5px;color:var(--text-dim);}
+  .stat .num{font-size:22px;color:var(--teal);font-weight:500;}
+  .stat .label{font-size:11.5px;color:var(--ink-dim);}
 
   /* radar scope */
   .scope-wrap{display:flex;justify-content:center;}
-  .scope{position:relative;width:230px;height:230px;}
+  .scope{position:relative;width:220px;height:220px;}
   .scope svg{width:100%;height:100%;overflow:visible;}
-  .scope-ring{fill:none;stroke:var(--line);stroke-width:1;}
-  .scope-crosshair{stroke:var(--line-soft);stroke-width:1;}
+  .scope-ring{fill:none;stroke:var(--line-strong);stroke-width:1;}
+  .scope-crosshair{stroke:var(--line);stroke-width:1;}
   .sweep-group{
     transform-origin:115px 115px;
     animation:sweep 7s linear infinite;
@@ -154,51 +156,66 @@
     from{transform:rotate(0deg);}
     to{transform:rotate(360deg);}
   }
-  .sweep-line{stroke:var(--teal);stroke-width:1.5;opacity:0.9;}
+  .sweep-line{stroke:var(--teal);stroke-width:1.5;opacity:0.85;}
   .sweep-fade{fill:url(#sweepGradient);}
   .blip{fill:var(--amber);transition:r .25s ease, opacity .25s ease;}
   .blip.b1{animation:ping 7s linear infinite; animation-delay:0.05s;}
   .blip.b2{animation:ping 7s linear infinite; animation-delay:2.4s;}
   .blip.b3{animation:ping 7s linear infinite; animation-delay:4.85s;}
-  .blip.active{opacity:1 !important;r:6;filter:drop-shadow(0 0 5px var(--amber));}
+  .blip.active{opacity:1 !important;r:6;filter:drop-shadow(0 0 4px rgba(201,118,31,0.6));}
   @keyframes ping{
     0%{opacity:0;}
     2%{opacity:1;}
-    10%{opacity:0.25;}
-    100%{opacity:0.25;}
+    10%{opacity:0.35;}
+    100%{opacity:0.35;}
   }
   .scope-label{
     font-family:'IBM Plex Mono',monospace;
     font-size:11px;
-    fill:var(--text-dim);
+    fill:var(--ink-dim);
     transition:fill .2s ease;
   }
 
+  /* about strip */
+  .about{padding:40px 0;border-bottom:1px solid var(--line);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .about h3{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--teal);margin-bottom:10px;}
+  .about p{font-size:14.5px;color:var(--ink-dim);max-width:52ch;}
+  .skill-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .pill{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    padding:5px 10px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--ink);
+  }
+
   /* section headings */
-  .section{padding:56px 0;border-bottom:1px solid var(--line-soft);}
+  .section{padding:52px 0;border-bottom:1px solid var(--line);}
   .section-head{
     display:flex;
     align-items:baseline;
     justify-content:space-between;
-    margin-bottom:34px;
+    margin-bottom:30px;
   }
-  .section-head h2{font-size:22px;font-weight:600;}
+  .section-head h2{font-size:22px;font-weight:600;color:var(--ink);}
   .section-count{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
-    color:var(--text-dim);
+    color:var(--ink-dim);
   }
 
   /* project rows */
-  .project{border-top:1px solid var(--line-soft);transition:background .2s ease;}
-  .project:last-child{border-bottom:1px solid var(--line-soft);}
-  .project.hovered{background:rgba(234,167,63,0.04);}
+  .project{border-top:1px solid var(--line);transition:background .2s ease;}
+  .project:last-child{border-bottom:1px solid var(--line);}
+  .project.hovered{background:var(--teal-soft);}
   .project-summary-btn{
     all:unset;
     box-sizing:border-box;
     width:100%;
     cursor:pointer;
-    padding:22px 4px;
+    padding:22px 12px;
     display:grid;
     grid-template-columns:32px 1fr auto;
     gap:18px;
@@ -207,13 +224,13 @@
   .project-index{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
-    color:var(--text-dim);
+    color:var(--ink-dim);
     padding-top:3px;
     transition:color .2s ease;
   }
-  .project.hovered .project-index{color:var(--amber);}
-  .project-name{font-size:18px;font-weight:600;margin-bottom:6px;}
-  .project-summary{font-size:14px;color:var(--text-dim);max-width:56ch;}
+  .project.hovered .project-index{color:var(--teal);}
+  .project-name{font-size:18px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  .project-summary{font-size:14px;color:var(--ink-dim);max-width:56ch;}
   .project-toggle{
     font-family:'IBM Plex Mono',monospace;
     font-size:12px;
@@ -233,47 +250,62 @@
   .project.open .project-collapse{grid-template-rows:1fr;}
   .project-collapse-inner{overflow:hidden;}
   .project-body{
-    padding:0 4px 28px 50px;
+    padding:0 12px 30px 50px;
     display:grid;
-    gap:18px;
+    gap:16px;
   }
-  .project-body p{font-size:14.5px;color:var(--text-dim);max-width:60ch;}
+  .project-body p{font-size:14.5px;color:var(--ink-dim);max-width:60ch;}
+  .highlights{display:grid;gap:8px;max-width:60ch;}
+  .highlights li{
+    list-style:none;
+    font-size:14px;
+    color:var(--ink);
+    padding-left:18px;
+    position:relative;
+  }
+  .highlights li::before{
+    content:'';
+    position:absolute;left:0;top:8px;
+    width:6px;height:1.5px;
+    background:var(--amber);
+  }
   .tag-row{display:flex;flex-wrap:wrap;gap:8px;}
   .tag{
     font-family:'IBM Plex Mono',monospace;
     font-size:11.5px;
     padding:4px 9px;
-    border:1px solid var(--line);
-    color:var(--text-dim);
+    border:1px solid var(--line-strong);
+    color:var(--ink-dim);
+    background:#fff;
     transition:border-color .15s ease, color .15s ease;
   }
   .tag:hover{border-color:var(--teal);color:var(--teal);}
-  .project-links{display:flex;gap:14px;flex-wrap:wrap;}
+  .project-links{display:flex;gap:16px;flex-wrap:wrap;}
   .project-links a{
     font-family:'IBM Plex Mono',monospace;
     font-size:13px;
-    color:var(--amber);
+    color:var(--teal);
     text-decoration:none;
     border-bottom:1px solid transparent;
   }
-  .project-links a:hover{border-bottom-color:var(--amber);}
+  .project-links a:hover{border-bottom-color:var(--teal);}
   .project-image{
-    border:1px solid var(--line);
+    border:1px solid var(--line-strong);
     max-width:100%;
     display:block;
   }
   .project-image-caption{
     font-family:'IBM Plex Mono',monospace;
     font-size:11.5px;
-    color:var(--text-dim);
+    color:var(--ink-dim);
     margin-top:8px;
   }
 
   /* footer */
-  footer{padding:48px 0 64px;}
+  footer{padding:44px 0 60px;}
   footer .wrap{display:flex;flex-direction:column;gap:10px;}
-  footer .foot-title{font-size:19px;font-weight:600;margin-bottom:6px;}
-  footer .foot-desc{font-size:14px;color:var(--text-dim);max-width:50ch;margin-bottom:18px;}
+  footer .foot-title{font-size:19px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  footer .foot-desc{font-size:14px;color:var(--ink-dim);max-width:50ch;margin-bottom:18px;}
   .foot-links{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
   .copy-note{
     font-family:'IBM Plex Mono',monospace;
@@ -289,6 +321,7 @@
     .scope-wrap{order:-1;margin-bottom:8px;}
     .scope{width:170px;height:170px;}
     .stat-bar{gap:20px;}
+    .about-grid{grid-template-columns:1fr;gap:26px;}
   }
 </style>
 </head>
@@ -336,8 +369,8 @@
           <svg viewBox="0 0 230 230">
             <defs>
               <radialGradient id="sweepGradient" cx="0%" cy="0%" r="100%">
-                <stop offset="0%" stop-color="#4fb6a6" stop-opacity="0.35"/>
-                <stop offset="100%" stop-color="#4fb6a6" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#1f7a6c" stop-opacity="0.28"/>
+                <stop offset="100%" stop-color="#1f7a6c" stop-opacity="0"/>
               </radialGradient>
             </defs>
             <circle class="scope-ring" cx="115" cy="115" r="100"/>
@@ -357,6 +390,31 @@
 
             <text class="scope-label" id="scopeLabel" x="115" y="205" text-anchor="middle">3 PROJECTS DETECTED</text>
           </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap about-grid">
+      <div>
+        <h3>About</h3>
+        <p>
+          I work across the automotive software stack — from bare-metal embedded control
+          to ROS-based perception and the middleware that connects vehicle systems together.
+          My background spans a master's thesis benchmarking in-vehicle communication
+          protocols, a university V2X perception project, and hands-on embedded builds.
+        </p>
+      </div>
+      <div>
+        <h3>Core areas</h3>
+        <div class="skill-pills">
+          <span class="pill">Embedded Systems</span>
+          <span class="pill">ROS / Robotics</span>
+          <span class="pill">In-Vehicle Middleware</span>
+          <span class="pill">C++ / Python</span>
+          <span class="pill">Sensor Perception</span>
+          <span class="pill">V2X Communication</span>
         </div>
       </div>
     </div>
@@ -383,10 +441,14 @@
             <p>
               Built as the perception stage of a four-part university V2X project. Radar data — either
               from a live perception-kit topic or recorded rosbag files — is parsed against roughly 130
-              custom ROS message definitions aligned to the ETSI ITS CPM standard, then filtered by
-              confidence score and distance to reject phantom detections before being drawn as
-              classified object markers (car, pedestrian) against an ego-vehicle model in RViz.
+              custom ROS message definitions aligned to the ETSI ITS CPM standard, then filtered and
+              classified before being rendered in RViz against an ego-vehicle model.
             </p>
+            <ul class="highlights">
+              <li>Wrote ~130 custom ROS message definitions matching the ETSI ITS CPM standard</li>
+              <li>Filtered radar false positives using confidence-score and distance thresholds</li>
+              <li>Classified and rendered objects (car / pedestrian) as live RViz markers</li>
+            </ul>
             <img class="project-image" src="https://github.com/Kaustubh3197/v2x-cpm-perception/raw/main/docs/rviz_visualization.png" alt="RViz visualization comparing unfiltered radar detections to filtered, classified output" loading="lazy">
             <div class="project-image-caption">Left: unfiltered detections. Right: filtered output classified as cars and pedestrians.</div>
             <div class="tag-row">
@@ -419,10 +481,13 @@
               Eight in-vehicle communication protocols were first scored with a multi-criteria
               decision analysis across latency, determinism, QoS support, and ecosystem maturity.
               DDS, SOME/IP, and Zenoh came out ahead and were carried into full proof-of-concept
-              implementations — the same seven-node ADAS scenario, data schema, and timing budgets
-              reproduced identically on all three, so any performance differences trace back to the
-              middleware itself rather than the application logic.
+              implementations built on an identical simulated ADAS workload.
             </p>
+            <ul class="highlights">
+              <li>Scored 8 candidate protocols using a multi-criteria decision analysis</li>
+              <li>Built matching proof-of-concept implementations in OpenDDS, vsomeip, and Zenoh</li>
+              <li>Reproduced the same 7-node ADAS scenario and timing budgets across all three, isolating middleware-only performance differences</li>
+            </ul>
             <div class="tag-row">
               <span class="tag">OpenDDS</span>
               <span class="tag">vsomeip / SOME-IP</span>
@@ -450,12 +515,15 @@
           <div class="project-body">
             <p>
               A hand-worn glove reads tilt from an accelerometer and encodes it over RF433 to a
-              receiver on the car, which decodes the signal directly into a motor driver — no
-              microcontroller needed on that side. A separate ultrasonic circuit sweeps a
-              servo-mounted sensor to detect and steer around obstacles autonomously. Debugged and
-              corrected two dead gesture states left over from the original build, where impossible
-              numeric thresholds meant "backward" and "right" never registered.
+              receiver on the car, which decodes the signal directly into a motor driver. A separate
+              ultrasonic circuit sweeps a servo-mounted sensor to detect and steer around obstacles
+              autonomously.
             </p>
+            <ul class="highlights">
+              <li>Designed a wireless gesture-control link using an accelerometer, RF433, and encoder/decoder ICs</li>
+              <li>Built an autonomous obstacle-avoidance mode with a servo-swept ultrasonic sensor</li>
+              <li>Fixed two dead gesture states caused by impossible numeric thresholds in the original build</li>
+            </ul>
             <div class="tag-row">
               <span class="tag">Arduino / C++</span>
               <span class="tag">RF433</span>
@@ -489,7 +557,6 @@
 
 <script>
 (function(){
-  // scroll progress bar
   var progress = document.getElementById('progress');
   function updateProgress(){
     var h = document.documentElement;
@@ -500,21 +567,19 @@
   document.addEventListener('scroll', updateProgress, {passive:true});
   updateProgress();
 
-  // stat counters, animate once visible
   var counted = false;
   function animateCounters(){
     if(counted) return;
     counted = true;
     document.querySelectorAll('.num').forEach(function(el){
       var target = parseInt(el.getAttribute('data-count'), 10);
-      var start = 0;
       var duration = 900;
       var startTime = null;
       function step(ts){
         if(!startTime) startTime = ts;
-        var progressRatio = Math.min((ts - startTime) / duration, 1);
-        el.textContent = Math.floor(progressRatio * target);
-        if(progressRatio < 1) requestAnimationFrame(step);
+        var r = Math.min((ts - startTime) / duration, 1);
+        el.textContent = Math.floor(r * target);
+        if(r < 1) requestAnimationFrame(step);
         else el.textContent = target;
       }
       requestAnimationFrame(step);
@@ -530,7 +595,6 @@
     animateCounters();
   }
 
-  // radar <-> project linking
   var sweepGroup = document.getElementById('sweepGroup');
   var scopeLabel = document.getElementById('scopeLabel');
   var blips = {
@@ -538,7 +602,7 @@
     '2': document.getElementById('blip-2'),
     '3': document.getElementById('blip-3')
   };
-  var blipAngles = {}; // precompute angle from center (115,115) to each blip, 12 o'clock = 0deg
+  var blipAngles = {};
   Object.keys(blips).forEach(function(key){
     var b = blips[key];
     var cx = parseFloat(b.getAttribute('cx'));
@@ -593,7 +657,6 @@
     });
   });
 
-  // copy linkedin url
   var copyBtn = document.getElementById('copyLinkedin');
   var copyNote = document.getElementById('copyNote');
   if(copyBtn){
