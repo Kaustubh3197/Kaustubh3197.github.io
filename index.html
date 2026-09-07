@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaustubh Patil — Development Engineer, Automotive Systems &amp; Robotics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1520;
+    --panel:#121f30;
+    --line:#24384f;
+    --line-soft:#1a2c3f;
+    --text:#dce6f0;
+    --text-dim:#8ca0b8;
+    --amber:#e8a33d;
+    --teal:#4fb6a6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Space Grotesk',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;}
+  ::selection{background:var(--amber);color:#0d1520;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+
+  /* header */
+  header{
+    position:sticky;top:0;z-index:10;
+    background:rgba(13,21,32,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .brand{font-weight:600;font-size:15px;letter-spacing:0.01em;text-decoration:none;}
+  header nav{display:flex;gap:28px;}
+  header nav a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--text-dim);
+    text-decoration:none;
+    transition:color .15s ease;
+  }
+  header nav a:hover{color:var(--amber);}
+
+  /* hero */
+  .hero{padding:64px 0 56px;border-bottom:1px solid var(--line-soft);}
+  .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;}
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--teal);
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(32px,5vw,44px);
+    font-weight:700;
+    letter-spacing:-0.01em;
+    line-height:1.12;
+    margin-bottom:10px;
+  }
+  .title-line{
+    font-size:17px;
+    color:var(--text-dim);
+    margin-bottom:22px;
+  }
+  .hero-desc{
+    font-size:15px;
+    color:var(--text-dim);
+    max-width:46ch;
+    margin-bottom:26px;
+  }
+  .hero-links{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    padding:10px 16px;
+    border:1px solid var(--line);
+    text-decoration:none;
+    color:var(--text);
+    transition:border-color .15s ease, color .15s ease;
+    display:inline-block;
+  }
+  .btn:hover{border-color:var(--amber);color:var(--amber);}
+  .btn.primary{border-color:var(--amber);color:var(--amber);}
+  .btn.primary:hover{background:var(--amber);color:#0d1520;}
+
+  /* radar scope */
+  .scope-wrap{display:flex;justify-content:center;}
+  .scope{position:relative;width:230px;height:230px;}
+  .scope svg{width:100%;height:100%;}
+  .scope-ring{fill:none;stroke:var(--line);stroke-width:1;}
+  .scope-crosshair{stroke:var(--line-soft);stroke-width:1;}
+  .sweep-group{transform-origin:115px 115px;animation:sweep 6s linear infinite;}
+  @media (prefers-reduced-motion: reduce){
+    .sweep-group{animation:none;}
+    .blip{animation:none !important;opacity:.9;}
+  }
+  @keyframes sweep{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+  }
+  .sweep-line{
+    stroke:var(--teal);
+    stroke-width:1.5;
+    opacity:0.9;
+  }
+  .sweep-fade{fill:url(#sweepGradient);}
+  .blip{fill:var(--amber);}
+  .blip.b1{animation:ping 6s linear infinite; animation-delay:0.05s;}
+  .blip.b2{animation:ping 6s linear infinite; animation-delay:2.15s;}
+  .blip.b3{animation:ping 6s linear infinite; animation-delay:4.35s;}
+  @keyframes ping{
+    0%{opacity:0;}
+    2%{opacity:1;}
+    10%{opacity:0.25;}
+    100%{opacity:0.25;}
+  }
+  .scope-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    fill:var(--text-dim);
+  }
+
+  /* section headings */
+  .section{padding:56px 0;border-bottom:1px solid var(--line-soft);}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:34px;
+  }
+  .section-head h2{font-size:22px;font-weight:600;}
+  .section-count{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--text-dim);
+  }
+
+  /* project rows */
+  .project{
+    border-top:1px solid var(--line-soft);
+  }
+  .project:last-child{border-bottom:1px solid var(--line-soft);}
+  .project summary{
+    list-style:none;
+    cursor:pointer;
+    padding:22px 0;
+    display:grid;
+    grid-template-columns:32px 1fr auto;
+    gap:18px;
+    align-items:start;
+  }
+  .project summary::-webkit-details-marker{display:none;}
+  .project-index{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--text-dim);
+    padding-top:3px;
+  }
+  .project-name{font-size:18px;font-weight:600;margin-bottom:6px;}
+  .project-summary{font-size:14px;color:var(--text-dim);max-width:56ch;}
+  .project-toggle{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--teal);
+    padding-top:4px;
+    white-space:nowrap;
+  }
+  .project[open] .project-toggle .plus{display:none;}
+  .project:not([open]) .project-toggle .minus{display:none;}
+
+  .project-body{
+    padding:0 0 28px 50px;
+    display:grid;
+    gap:18px;
+  }
+  .project-body p{font-size:14.5px;color:var(--text-dim);max-width:60ch;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    padding:4px 9px;
+    border:1px solid var(--line);
+    color:var(--text-dim);
+  }
+  .project-links{display:flex;gap:14px;flex-wrap:wrap;}
+  .project-links a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--amber);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  .project-links a:hover{border-bottom-color:var(--amber);}
+  .project-image{
+    border:1px solid var(--line);
+    max-width:100%;
+    display:block;
+  }
+  .project-image-caption{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-top:8px;
+  }
+
+  /* footer */
+  footer{padding:48px 0 64px;}
+  footer .wrap{display:flex;flex-direction:column;gap:10px;}
+  footer .foot-title{font-size:19px;font-weight:600;margin-bottom:6px;}
+  footer .foot-desc{font-size:14px;color:var(--text-dim);max-width:50ch;margin-bottom:18px;}
+  .foot-links{display:flex;gap:16px;flex-wrap:wrap;}
+
+  @media (max-width:720px){
+    .hero-grid{grid-template-columns:1fr;}
+    .scope-wrap{order:-1;margin-bottom:8px;}
+    .scope{width:170px;height:170px;}
+    .project summary{grid-template-columns:24px 1fr;}
+    .project-toggle{grid-column:1/-1;padding-top:0;}
+    .project-body{padding-left:0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="#top" class="brand">Kaustubh Patil</a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="kicker mono">/// signal acquired</div>
+        <h1>Kaustubh Patil</h1>
+        <div class="title-line">Development Engineer — Automotive Systems &amp; Robotics</div>
+        <p class="hero-desc">
+          I build and benchmark the systems that let vehicles sense, communicate, and act —
+          from embedded control loops to ROS perception pipelines to the middleware that
+          carries data between them.
+        </p>
+        <div class="hero-links">
+          <a class="btn primary" href="#work">View projects</a>
+          <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <div class="scope-wrap">
+        <div class="scope" role="img" aria-label="Radar scope illustration with three detected signals, representing three featured projects">
+          <svg viewBox="0 0 230 230">
+            <defs>
+              <radialGradient id="sweepGradient" cx="0%" cy="0%" r="100%">
+                <stop offset="0%" stop-color="#4fb6a6" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#4fb6a6" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle class="scope-ring" cx="115" cy="115" r="100"/>
+            <circle class="scope-ring" cx="115" cy="115" r="66"/>
+            <circle class="scope-ring" cx="115" cy="115" r="32"/>
+            <line class="scope-crosshair" x1="15" y1="115" x2="215" y2="115"/>
+            <line class="scope-crosshair" x1="115" y1="15" x2="115" y2="215"/>
+
+            <g class="sweep-group">
+              <path class="sweep-fade" d="M115,115 L115,15 A100,100 0 0,1 185.4,44.6 Z"/>
+              <line class="sweep-line" x1="115" y1="115" x2="115" y2="15"/>
+            </g>
+
+            <circle class="blip b1" cx="160" cy="70" r="4"/>
+            <circle class="blip b2" cx="70" cy="150" r="4"/>
+            <circle class="blip b3" cx="165" cy="160" r="4"/>
+
+            <text class="scope-label" x="115" y="205" text-anchor="middle">3 PROJECTS DETECTED</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Selected work</h2>
+        <span class="section-count mono">03 repositories</span>
+      </div>
+
+      <details class="project" open>
+        <summary>
+          <span class="project-index mono">01</span>
+          <span>
+            <div class="project-name">V2X CPM Perception &amp; Visualization Pipeline</div>
+            <div class="project-summary">A ROS pipeline that parses radar data as ETSI ITS Collective Perception Messages, filters false detections, and renders the result live in RViz.</div>
+          </span>
+          <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
+        </summary>
+        <div class="project-body">
+          <p>
+            Built as the perception stage of a four-part university V2X project. Radar data — either
+            from a live perception-kit topic or recorded rosbag files — is parsed against roughly 130
+            custom ROS message definitions aligned to the ETSI ITS CPM standard, then filtered by
+            confidence score and distance to reject phantom detections before being drawn as
+            classified object markers (car, pedestrian) against an ego-vehicle model in RViz.
+          </p>
+          <img class="project-image" src="https://github.com/Kaustubh3197/v2x-cpm-perception/raw/main/docs/rviz_visualization.png" alt="RViz visualization comparing unfiltered radar detections to filtered, classified output" loading="lazy">
+          <div class="project-image-caption">Left: unfiltered detections. Right: filtered output classified as cars and pedestrians.</div>
+          <div class="tag-row">
+            <span class="tag">ROS Melodic</span>
+            <span class="tag">Python</span>
+            <span class="tag">RViz</span>
+            <span class="tag">ETSI ITS CPM</span>
+            <span class="tag">rosbag</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Kaustubh3197/v2x-cpm-perception" target="_blank" rel="noopener">View repository</a>
+            <a href="https://github.com/Kaustubh3197/v2x-cpm-perception/blob/main/docs/V2X_Team4_Presentation.pdf" target="_blank" rel="noopener">Project presentation (PDF)</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="project">
+        <summary>
+          <span class="project-index mono">02</span>
+          <span>
+            <div class="project-name">Middleware Comparison for ADAS / SDV — Master's Thesis</div>
+            <div class="project-summary">Benchmarking OpenDDS, vsomeip, and Zenoh against an identical simulated ADAS workload to compare in-vehicle communication middleware.</div>
+          </span>
+          <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
+        </summary>
+        <div class="project-body">
+          <p>
+            Eight in-vehicle communication protocols were first scored with a multi-criteria
+            decision analysis across latency, determinism, QoS support, and ecosystem maturity.
+            DDS, SOME/IP, and Zenoh came out ahead and were carried into full proof-of-concept
+            implementations — the same seven-node ADAS scenario, data schema, and timing budgets
+            reproduced identically on all three, so any performance differences trace back to the
+            middleware itself rather than the application logic.
+          </p>
+          <div class="tag-row">
+            <span class="tag">OpenDDS</span>
+            <span class="tag">vsomeip / SOME-IP</span>
+            <span class="tag">Eclipse Zenoh</span>
+            <span class="tag">MCDA</span>
+            <span class="tag">C++</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a>
+          </div>
+        </div>
+      </details>
+
+      <details class="project">
+        <summary>
+          <span class="project-index mono">03</span>
+          <span>
+            <div class="project-name">Gesture-Control &amp; Obstacle-Avoiding Car</div>
+            <div class="project-summary">An Arduino build with two independent circuits — an accelerometer-and-RF433 gesture remote, and a standalone ultrasonic obstacle-avoidance mode.</div>
+          </span>
+          <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
+        </summary>
+        <div class="project-body">
+          <p>
+            A hand-worn glove reads tilt from an accelerometer and encodes it over RF433 to a
+            receiver on the car, which decodes the signal directly into a motor driver — no
+            microcontroller needed on that side. A separate ultrasonic circuit sweeps a
+            servo-mounted sensor to detect and steer around obstacles autonomously. Debugged and
+            corrected two dead gesture states left over from the original build, where impossible
+            numeric thresholds meant "backward" and "right" never registered.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Arduino / C++</span>
+            <span class="tag">RF433</span>
+            <span class="tag">ADXL335</span>
+            <span class="tag">Embedded Systems</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Kaustubh3197/gesture-control-obstacle-avoiding-car" target="_blank" rel="noopener">View repository</a>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="foot-title">Let's talk</div>
+      <p class="foot-desc">Open to conversations about automotive software, embedded systems, and robotics roles.</p>
+      <div class="foot-links">
+        <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>
