@@ -76,7 +76,7 @@
   }
   .bar .wrap{display:flex;align-items:center;gap:24px;height:60px;}
   .brand{font-weight:700;font-stretch:115%;text-decoration:none;font-size:16px;margin-right:auto;white-space:nowrap;}
-  .bar nav{display:flex;gap:22px;}
+  .bar nav{display:flex;gap:22px;margin-left:auto;}
   .bar nav a{text-decoration:none;color:var(--muted);font-size:15px;}
   .bar nav a:hover{color:var(--ink);}
   .theme-btn{
@@ -93,7 +93,7 @@
   .hero{padding:64px 0 56px;}
   .name{
     /* one line at every width: size follows the available width */
-    font-size:clamp(26px, calc((min(100vw, 1200px) - 48px) / 14.5), 72px);
+    font-size:clamp(24px, calc((min(100vw, 1200px) - 48px) / 18), 60px);
     font-weight:800;
     font-stretch:122%;
     line-height:1;
@@ -281,13 +281,10 @@
     .row{grid-template-columns:1fr auto;gap:8px 14px;padding:20px 4px;}
     .bearing{grid-column:1 / -1;padding-top:0;}
     .detail-body{padding:0 4px 26px;}
-    .name{margin-bottom:10px;font-size:clamp(24px, calc((100vw - 32px) / 11), 40px);}
+    .name{margin-bottom:10px;font-size:clamp(22px, calc((100vw - 32px) / 12.5), 34px);}
     .role{margin-bottom:32px;}
     .toolkit{grid-template-columns:1fr;}
     .scope{width:min(340px,100%);}
-  }
-  @media (max-width:400px){
-    .bar nav a[href="#toolkit"]{display:none;}
   }
 </style>
 </head>
@@ -295,7 +292,6 @@
 
 <header class="bar">
   <div class="wrap">
-    <a href="#top" class="brand">Kaustubh Patil</a>
     <nav aria-label="Main">
       <a href="#work">Work</a>
       <a href="#toolkit">Toolkit</a>
@@ -568,7 +564,7 @@
   <section class="section" id="toolkit">
     <div class="wrap">
       <h2>Toolkit</h2>
-      <p class="section-intro">The languages and tools behind the projects above.</p>
+      <p class="section-intro">The languages and tools behind the projects above:</p>
       <div class="toolkit">
         <div><h3>Languages</h3><ul class="chips"><li>C++</li><li>Python</li></ul></div>
         <div><h3>Vehicles &amp; robotics</h3><ul class="chips"><li>ROS</li><li>RViz</li><li>OpenDDS</li><li>SOME/IP (vSomeIP)</li><li>Eclipse Zenoh</li><li>ETSI ITS CPM</li><li>Arduino</li></ul></div>
