@@ -1,3 +1,6 @@
+
+
+Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +51,7 @@
     --amber:#f0a445; --amber-soft:#3a2a14; --blue:#7f9ff0; --blue-soft:#1d2a4a;
     --scope-bg:#122029; --focus:#3cc0aa;
   }
-
+ 
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;scroll-padding-top:76px;}
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
@@ -65,8 +68,8 @@
   img{max-width:100%;display:block;}
   :focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
-
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+ 
   /* ---------- header ---------- */
   .bar{
     position:sticky;top:0;z-index:20;
@@ -88,20 +91,27 @@
   .theme-btn .moon{display:none;}
   :root[data-theme="dark"] .theme-btn .sun{display:none;}
   :root[data-theme="dark"] .theme-btn .moon{display:block;}
-
+ 
   /* ---------- hero ---------- */
   .hero{padding:64px 0 56px;}
-  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
-  h1{
-    font-size:clamp(44px,7vw,84px);
+  .name{
+    /* one line at every width: size follows the available width */
+    font-size:clamp(26px, calc((min(100vw, 1200px) - 48px) / 14.5), 72px);
     font-weight:800;
-    font-stretch:125%;
-    line-height:.95;
+    font-stretch:122%;
+    line-height:1;
     letter-spacing:-0.01em;
-    margin-bottom:22px;
+    white-space:nowrap;
+    margin-bottom:14px;
   }
-  .role{font-size:clamp(18px,2.2vw,22px);font-weight:500;line-height:1.35;margin-bottom:18px;max-width:30ch;}
-  .lede{color:var(--muted);max-width:52ch;margin-bottom:30px;}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:48px;align-items:start;}
+  .intro{padding-top:8px;}
+  .focus{list-style:none;display:grid;gap:10px;margin:0 0 32px;}
+  .focus li{position:relative;padding-left:22px;color:var(--muted);}
+  .focus li::before{content:'';position:absolute;left:0;top:.62em;width:10px;height:10px;border-radius:50%;border:2px solid var(--teal);}
+  .focus b{color:var(--ink);font-weight:600;}
+  .role{font-size:clamp(17px,1.85vw,21px);font-weight:500;line-height:1.4;color:var(--muted);margin-bottom:44px;text-wrap:balance;}
+  .lede{color:var(--ink);font-size:17px;font-weight:500;margin-bottom:16px;}
   .actions{display:flex;flex-wrap:wrap;gap:12px;}
   .btn{
     display:inline-flex;align-items:center;gap:8px;
@@ -114,10 +124,10 @@
   .btn.primary{background:var(--teal);border-color:var(--teal);color:var(--teal-ink);}
   .btn.primary:hover{filter:brightness(1.08);color:var(--teal-ink);}
   .btn svg{width:16px;height:16px;}
-
+ 
   /* ---------- radar ---------- */
   .scope-panel{display:flex;flex-direction:column;align-items:center;gap:16px;}
-  .scope{position:relative;width:min(420px,100%);aspect-ratio:1;}
+  .scope{position:relative;width:min(380px,100%);aspect-ratio:1;}
   .scope svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
   .scope-disc{fill:var(--scope-bg);}
   .ring{fill:none;stroke:var(--line-strong);stroke-width:1;}
@@ -133,7 +143,7 @@
   .sweep-line{stroke:var(--teal);stroke-width:1.6;}
   .sweep-fade{fill:url(#sweepGrad);}
   @keyframes sweep{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
+ 
   .blip{
     position:absolute;left:var(--x);top:var(--y);
     width:30px;height:30px;margin:-15px 0 0 -15px;
@@ -144,8 +154,8 @@
     content:'';width:12px;height:12px;border-radius:50%;
     background:var(--c);
     box-shadow:0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent);
-    animation:ping 8s linear infinite;animation-delay:var(--d);
-    transition:transform .2s;
+    opacity:.55;
+    transition:transform .25s, opacity .6s, box-shadow .9s;
   }
   .blip.veh{--c:var(--amber);}
   .blip.test{--c:var(--blue);}
@@ -159,21 +169,18 @@
     border:1px solid var(--line-strong);border-radius:6px;padding:2px 8px;
     opacity:0;pointer-events:none;transition:opacity .15s;
   }
-  .blip:hover .blip-tag,.blip:focus-visible .blip-tag,.blip.active .blip-tag{opacity:1;}
-  @keyframes ping{
-    0%{opacity:.35;box-shadow:0 0 0 0 color-mix(in srgb, var(--c) 55%, transparent);}
-    1%{opacity:1;}
-    12%{box-shadow:0 0 0 14px transparent;}
-    30%{opacity:.55;}
-    100%{opacity:.35;}
-  }
+  .blip.swept::before{opacity:1;transform:scale(1.35);box-shadow:0 0 0 10px transparent;transition:transform .2s, opacity .1s, box-shadow 1.2s;}
+  .blip.swept .blip-tag{opacity:1;transition:opacity .2s;}
+  .blip-tag{transition:opacity .9s;}
+  .blip:hover .blip-tag,.blip:focus-visible .blip-tag,.blip.active .blip-tag{opacity:1;transition:opacity .15s;}
+  .blip:hover::before,.blip.active::before,.blip:focus-visible::before{opacity:1;}
   @media (prefers-reduced-motion: reduce){
     .sweep{animation:none;}
-    .blip::before{animation:none;opacity:1;}
+    .blip::before{opacity:1;}
   }
-
+ 
   .readout{
-    width:min(420px,100%);min-height:188px;
+    width:min(380px,100%);min-height:188px;
     background:var(--surface);border:1px solid var(--line);border-radius:14px;
     padding:16px 18px;
   }
@@ -186,12 +193,12 @@
     background:none;border:0;padding:0;font:inherit;font-weight:600;font-size:15px;
     color:var(--teal);cursor:pointer;text-decoration:underline;text-underline-offset:3px;
   }
-
+ 
   /* ---------- sections ---------- */
   .section{padding:64px 0;border-top:1px solid var(--line);}
   h2{font-size:clamp(26px,3.4vw,34px);font-weight:700;font-stretch:112%;line-height:1.15;}
   .section-intro{color:var(--muted);max-width:60ch;margin-top:8px;}
-
+ 
   .work-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px;}
   .filters{display:flex;gap:6px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;flex-wrap:wrap;}
   .filter{
@@ -202,7 +209,7 @@
   .filter .count{font-weight:500;opacity:.8;}
   .filter[aria-pressed="true"]{background:var(--ink);color:var(--paper);}
   .filter i{width:8px;height:8px;border-radius:50%;background:var(--c);display:inline-block;}
-
+ 
   .projects{list-style:none;border-top:1px solid var(--line);}
   .project{border-bottom:1px solid var(--line);transition:background .2s;}
   .project.hl{background:color-mix(in srgb, var(--c) 7%, transparent);}
@@ -221,38 +228,49 @@
   .chev{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;margin-top:2px;transition:transform .3s,background .2s;}
   .chev svg{width:16px;height:16px;}
   .project.open .chev{transform:rotate(180deg);background:var(--surface);}
-
+ 
   .detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease;}
   .project.open .detail{grid-template-rows:1fr;}
   .detail-inner{overflow:hidden;}
-  .detail-body{padding:0 12px 30px 108px;display:grid;gap:16px;max-width:900px;}
-  .detail-body p{color:var(--muted);max-width:70ch;}
+  .detail-body{padding:4px 12px 34px 108px;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:40px;}
+  .detail-body h4{font-size:14px;font-weight:700;color:var(--ink);margin:0 0 8px;}
+  .d-main h4:not(:first-child),.d-side h4:not(:first-child){margin-top:22px;}
+  .d-main p{color:var(--muted);max-width:66ch;}
+  .d-main p + p{margin-top:8px;}
+  .d-side{border-left:1px solid var(--line);padding-left:24px;}
+  .kind{color:var(--muted);}
+  .figure{margin-top:18px;}
   .highlights{list-style:none;display:grid;gap:8px;}
-  .highlights li{position:relative;padding-left:20px;max-width:72ch;}
+  .highlights li{position:relative;padding-left:20px;max-width:66ch;}
   .highlights li::before{content:'';position:absolute;left:0;top:.72em;width:9px;height:2px;background:var(--c);}
   .tags{display:flex;flex-wrap:wrap;gap:8px;}
   .tag{font-size:13px;font-weight:600;padding:4px 10px;border-radius:6px;background:var(--c-soft);color:var(--ink);}
   .links{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+  .note{margin-top:12px;}
   .links .btn{padding:8px 14px;font-size:14px;}
   .links img{height:20px;width:auto;}
   .note{font-size:13.5px;color:var(--muted);}
+  .d-side .links .btn{width:100%;justify-content:center;}
   .figure img{border:1px solid var(--line);border-radius:10px;}
   .figure figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;}
-
+ 
   /* ---------- toolkit ---------- */
   .toolkit{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:28px;}
   .toolkit h3{font-size:16px;font-weight:700;margin-bottom:12px;}
   .chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;}
   .chips li{font-size:14px;padding:5px 11px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);}
-
+ 
   /* ---------- contact ---------- */
   .contact .wrap{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;}
   .contact p{color:var(--muted);max-width:52ch;margin-top:8px;}
   footer.small{padding:28px 0 40px;color:var(--muted);font-size:14px;}
-
+ 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
-    .hero .wrap{grid-template-columns:1fr;gap:40px;}
+    .hero-grid{grid-template-columns:1fr;gap:44px;}
+    .detail-body{grid-template-columns:1fr;gap:8px;padding-left:108px;}
+    .d-side{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:18px;margin-top:10px;}
+    .d-side .links .btn{width:auto;}
     .toolkit{grid-template-columns:1fr 1fr;}
   }
   @media (max-width:640px){
@@ -265,6 +283,8 @@
     .row{grid-template-columns:1fr auto;gap:8px 14px;padding:20px 4px;}
     .bearing{grid-column:1 / -1;padding-top:0;}
     .detail-body{padding:0 4px 26px;}
+    .name{margin-bottom:10px;font-size:clamp(24px, calc((100vw - 32px) / 11), 40px);}
+    .role{margin-bottom:32px;}
     .toolkit{grid-template-columns:1fr;}
     .scope{width:min(340px,100%);}
   }
@@ -274,7 +294,7 @@
 </style>
 </head>
 <body>
-
+ 
 <header class="bar">
   <div class="wrap">
     <a href="#top" class="brand">Kaustubh Patil</a>
@@ -289,28 +309,30 @@
     </button>
   </div>
 </header>
-
+ 
 <main id="top">
-
+ 
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="wrap">
-      <div>
-        <h1>Kaustubh<br>Patil</h1>
-        <p class="role">Development engineer for automotive systems, robotics and the tests that keep them working.</p>
-        <p class="lede">
-          I build and benchmark the systems that let vehicles sense, communicate and act, from embedded
-          control loops to ROS perception pipelines to the middleware that carries data between them,
-          and the automation that checks every change.
-        </p>
-        <div class="actions">
-          <a class="btn primary" href="#work">View projects</a>
-          <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
+      <h1 class="name">Kaustubh Patil</h1>
+      <p class="role">Automotive &amp; Robotics Development Engineer | Test Automation &amp; CI/CD</p>
+      <div class="hero-grid">
+        <div class="intro">
+          <p class="lede">I build and benchmark the systems that let vehicles sense, communicate and act:</p>
+          <ul class="focus">
+            <li><b>Embedded control</b> that drives motors and sensors</li>
+            <li><b>ROS perception pipelines</b> that turn sensor data into objects</li>
+            <li><b>In-vehicle middleware</b> that carries data between them</li>
+            <li><b>Test automation and CI/CD</b> that check every change</li>
+          </ul>
+          <div class="actions">
+            <a class="btn primary" href="#work">View projects</a>
+            <a class="btn" href="https://www.linkedin.com/in/kaustubh-prakash-patil" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn" href="https://github.com/Kaustubh3197" target="_blank" rel="noopener">GitHub</a>
+          </div>
         </div>
-      </div>
-
-      <div class="scope-panel">
+        <div class="scope-panel">
         <div class="scope" id="scope">
           <svg viewBox="0 0 240 240" aria-hidden="true">
             <defs>
@@ -342,7 +364,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- ===== Work ===== -->
   <section class="section" id="work">
     <div class="wrap">
@@ -357,136 +379,193 @@
           <button class="filter" type="button" data-filter="test" aria-pressed="false" style="--c:var(--blue)"><i></i>Testing &amp; delivery <span class="count">2</span></button>
         </div>
       </div>
-
+ 
       <ul class="projects" id="projects">
-
+ 
         <li class="project veh" id="middleware" data-bearing="40" data-range="0.74" data-short="Middleware thesis">
           <button class="row" type="button" aria-expanded="false" aria-controls="middleware-detail">
             <span class="bearing"><i></i><span class="brg">040°</span></span>
             <span>
-              <span class="p-name">Middleware Comparison for ADAS / SDV — Master's Thesis</span>
-              <span class="p-sum">Benchmarking OpenDDS, vsomeip and Zenoh against an identical simulated ADAS workload to compare in-vehicle communication middleware.</span>
+              <span class="p-name">Middleware Comparison for ADAS / SDV</span>
+              <span class="p-sum">Benchmarking OpenDDS, vsomeip and Zenoh on the same simulated ADAS workload to find the best in-vehicle communication middleware.</span>
             </span>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
           <div class="detail" id="middleware-detail"><div class="detail-inner"><div class="detail-body">
-            <p>Eight in-vehicle communication protocols were first scored with a multi-criteria decision analysis across latency, determinism, QoS support and ecosystem maturity. DDS, SOME/IP and Zenoh came out ahead and were carried into full proof-of-concept implementations built on an identical simulated ADAS workload.</p>
-            <ul class="highlights">
-              <li>Scored 8 candidate protocols using a multi-criteria decision analysis</li>
-              <li>Built matching proof-of-concept implementations in OpenDDS, vsomeip and Zenoh</li>
-              <li>Reproduced the same 7-node ADAS scenario and timing budgets across all three, isolating middleware-only performance differences</li>
-            </ul>
-            <div class="tags"><span class="tag">OpenDDS</span><span class="tag">vsomeip / SOME-IP</span><span class="tag">Eclipse Zenoh</span><span class="tag">MCDA</span><span class="tag">C++</span><span class="tag">Python</span></div>
-            <div class="links"><a class="btn" href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a></div>
+            <div class="d-main">
+              <h4>Overview</h4>
+              <p>Which middleware should carry data inside a software-defined vehicle?</p>
+              <p>I scored eight in-vehicle protocols on latency, determinism, QoS support and ecosystem maturity, then built the top three as proof-of-concept implementations on an identical simulated ADAS workload.</p>
+              <h4>What I did</h4>
+              <ul class="highlights">
+                <li>Scored 8 candidate protocols using a multi-criteria decision analysis (MCDA)</li>
+                <li>Built matching proof-of-concept implementations in OpenDDS, vsomeip and Zenoh</li>
+                <li>Reproduced the same 7-node ADAS scenario and timing budgets in all three, isolating middleware-only performance differences</li>
+              </ul>
+            </div>
+            <aside class="d-side">
+              <h4>Type</h4>
+              <p class="kind">Master&#x27;s thesis</p>
+              <h4>Tools</h4>
+              <div class="tags"><span class="tag">OpenDDS</span><span class="tag">vsomeip / SOME-IP</span><span class="tag">Eclipse Zenoh</span><span class="tag">MCDA</span><span class="tag">C++</span><span class="tag">Python</span></div>
+              <h4>Links</h4>
+              <div class="links">
+                <a class="btn" href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a>
+              </div>
+            </aside>
           </div></div></div>
         </li>
-
+ 
         <li class="project veh" id="v2x" data-bearing="100" data-range="0.5" data-short="V2X perception">
           <button class="row" type="button" aria-expanded="false" aria-controls="v2x-detail">
             <span class="bearing"><i></i><span class="brg">100°</span></span>
             <span>
               <span class="p-name">V2X CPM Perception &amp; Visualization Pipeline</span>
-              <span class="p-sum">A ROS pipeline that parses radar data as ETSI ITS Collective Perception Messages, filters false detections, and renders the result live in RViz.</span>
+              <span class="p-sum">A ROS pipeline that turns radar data into ETSI ITS Collective Perception Messages, filters false detections and shows the result live in RViz.</span>
             </span>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
           <div class="detail" id="v2x-detail"><div class="detail-inner"><div class="detail-body">
-            <p>Built as the perception stage of a four-part university V2X project. Radar data, either from a live perception-kit topic or recorded rosbag files, is parsed against roughly 130 custom ROS message definitions aligned to the ETSI ITS CPM standard, then filtered and classified before being rendered in RViz against an ego-vehicle model.</p>
-            <ul class="highlights">
-              <li>Filtered radar false positives using confidence-score and distance thresholds</li>
-              <li>Classified and rendered objects (car / pedestrian) as live RViz markers</li>
-            </ul>
-            <figure class="figure">
-              <img src="https://github.com/Kaustubh3197/v2x-cpm-perception/raw/main/docs/rviz_visualization.png" alt="RViz visualization comparing unfiltered radar detections to filtered, classified output" loading="lazy">
-              <figcaption>Left: unfiltered detections. Right: filtered output classified as cars and pedestrians.</figcaption>
-            </figure>
-            <div class="tags"><span class="tag">ROS Melodic</span><span class="tag">Python</span><span class="tag">RViz</span><span class="tag">ETSI ITS CPM</span><span class="tag">rosbag</span></div>
-            <div class="links">
-              <a class="btn" href="https://github.com/Kaustubh3197/v2x-cpm-perception" target="_blank" rel="noopener">View repository</a>
-              <a class="btn" href="https://github.com/Kaustubh3197/v2x-cpm-perception/blob/main/docs/V2X_Team4_Presentation.pdf" target="_blank" rel="noopener">Project presentation (PDF)</a>
+            <div class="d-main">
+              <h4>Overview</h4>
+              <p>The perception stage of a four-part university V2X project.</p>
+              <p>Radar data, live from a perception kit or replayed from rosbag files, is converted into standard Collective Perception Messages, cleaned of false detections, and drawn in RViz next to an ego-vehicle model.</p>
+              <h4>What I did</h4>
+              <ul class="highlights">
+                <li>Parsed radar data against roughly 130 custom ROS message definitions aligned to the ETSI ITS CPM standard</li>
+                <li>Filtered radar false positives using confidence-score and distance thresholds</li>
+                <li>Classified objects as cars or pedestrians and rendered them as live RViz markers</li>
+              </ul>
+              <figure class="figure"><img src="https://github.com/Kaustubh3197/v2x-cpm-perception/raw/main/docs/rviz_visualization.png" alt="RViz visualization comparing unfiltered radar detections to filtered, classified output" loading="lazy"><figcaption>Left: unfiltered detections. Right: filtered output, classified as cars and pedestrians.</figcaption></figure>
             </div>
+            <aside class="d-side">
+              <h4>Type</h4>
+              <p class="kind">University team project, perception stage</p>
+              <h4>Tools</h4>
+              <div class="tags"><span class="tag">ROS Melodic</span><span class="tag">Python</span><span class="tag">RViz</span><span class="tag">ETSI ITS CPM</span><span class="tag">rosbag</span></div>
+              <h4>Links</h4>
+              <div class="links">
+                <a class="btn" href="https://github.com/Kaustubh3197/v2x-cpm-perception" target="_blank" rel="noopener">View repository</a>
+                <a class="btn" href="https://github.com/Kaustubh3197/v2x-cpm-perception/blob/main/docs/V2X_Team4_Presentation.pdf" target="_blank" rel="noopener">Project presentation (PDF)</a>
+              </div>
+            </aside>
           </div></div></div>
         </li>
-
+ 
         <li class="project veh" id="gesture-car" data-bearing="148" data-range="0.82" data-short="Gesture-control car">
           <button class="row" type="button" aria-expanded="false" aria-controls="gesture-car-detail">
             <span class="bearing"><i></i><span class="brg">148°</span></span>
             <span>
               <span class="p-name">Gesture-Control &amp; Obstacle-Avoiding Car</span>
-              <span class="p-sum">An Arduino build with two independent circuits: an accelerometer-and-RF433 gesture remote, and a standalone ultrasonic obstacle-avoidance mode.</span>
+              <span class="p-sum">An Arduino car with two modes: steered by hand gestures from a wireless glove, or driving itself around obstacles.</span>
             </span>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
           <div class="detail" id="gesture-car-detail"><div class="detail-inner"><div class="detail-body">
-            <p>A hand-worn glove reads tilt from an accelerometer and encodes it over RF433 to a receiver on the car, which decodes the signal directly into a motor driver. A separate ultrasonic circuit sweeps a servo-mounted sensor to detect and steer around obstacles autonomously.</p>
-            <ul class="highlights">
-              <li>Designed a wireless gesture-control link using an accelerometer, RF433, and encoder/decoder ICs</li>
-              <li>Built an autonomous obstacle-avoidance mode with a servo-swept ultrasonic sensor</li>
-              <li>Fixed two dead gesture states caused by impossible numeric thresholds in the original build</li>
-            </ul>
-            <div class="tags"><span class="tag">Arduino / C++</span><span class="tag">Embedded systems</span></div>
-            <div class="links"><a class="btn" href="https://github.com/Kaustubh3197/gesture-control-obstacle-avoiding-car" target="_blank" rel="noopener">View repository</a></div>
+            <div class="d-main">
+              <h4>Overview</h4>
+              <p>Two independent circuits on one car.</p>
+              <p>A glove reads hand tilt from an accelerometer and sends it over RF433 to the car, where it drives the motors directly. A separate ultrasonic mode sweeps a servo-mounted sensor to find and steer around obstacles on its own.</p>
+              <h4>What I did</h4>
+              <ul class="highlights">
+                <li>Designed a wireless gesture-control link using an accelerometer, RF433, and encoder/decoder ICs</li>
+                <li>Built an autonomous obstacle-avoidance mode with a servo-swept ultrasonic sensor</li>
+                <li>Fixed two dead gesture states caused by impossible numeric thresholds in the original build</li>
+              </ul>
+            </div>
+            <aside class="d-side">
+              <h4>Type</h4>
+              <p class="kind">Embedded hardware build</p>
+              <h4>Tools</h4>
+              <div class="tags"><span class="tag">Arduino / C++</span><span class="tag">Embedded systems</span><span class="tag">RF433</span><span class="tag">Ultrasonic sensing</span></div>
+              <h4>Links</h4>
+              <div class="links">
+                <a class="btn" href="https://github.com/Kaustubh3197/gesture-control-obstacle-avoiding-car" target="_blank" rel="noopener">View repository</a>
+              </div>
+            </aside>
           </div></div></div>
         </li>
-
+ 
         <li class="project test" id="test-automation" data-bearing="236" data-range="0.66" data-short="Test automation">
           <button class="row" type="button" aria-expanded="false" aria-controls="test-automation-detail">
             <span class="bearing"><i></i><span class="brg">236°</span></span>
             <span>
               <span class="p-name">E2E Test Automation Framework with CI</span>
-              <span class="p-sum">Automated browser tests for an e-commerce web app in Python, using Playwright and Selenium, run on every change by a GitHub Actions pipeline.</span>
+              <span class="p-sum">Automated browser tests for an online shop, written in Python with Playwright and Selenium and run on every change by GitHub Actions.</span>
             </span>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
           <div class="detail" id="test-automation-detail"><div class="detail-inner"><div class="detail-body">
-            <p>An end-to-end test suite for a practice online store that drives a real browser the way a customer would: logging in, sorting and opening products, managing the cart and completing checkout. The same critical flows are covered with both Playwright and Selenium, and every push, pull request and nightly schedule triggers the full suite in CI.</p>
-            <ul class="highlights">
-              <li>Built 16 Playwright tests and 5 Selenium tests covering login, cart, sorting, product details and checkout, including negative and price-calculation checks</li>
-              <li>Structured the suite with the Page Object Model, chained pytest fixtures and data-driven parametrized tests</li>
-              <li>Set up a GitHub Actions matrix that runs the suite on Chromium, Firefox and a mobile viewport, with HTML reports, screenshots and traces kept for failures</li>
-              <li>Extended the framework with a new page object and tests for the product details page</li>
-            </ul>
-            <div class="tags"><span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">Selenium</span><span class="tag">pytest</span><span class="tag">GitHub Actions</span><span class="tag">Page Object Model</span></div>
-            <div class="links">
-              <a class="btn" href="https://github.com/Kaustubh3197/saucedemo-test-automation" target="_blank" rel="noopener">View repository</a>
-              <a class="btn" href="https://github.com/Kaustubh3197/saucedemo-test-automation/actions/workflows/tests.yml" target="_blank" rel="noopener">Live test runs</a>
-              <img src="https://github.com/Kaustubh3197/saucedemo-test-automation/actions/workflows/tests.yml/badge.svg?branch=main" alt="Test status" loading="lazy">
+            <div class="d-main">
+              <h4>Overview</h4>
+              <p>Tests that use an online shop the way a customer does: logging in, sorting and opening products, managing the cart and checking out.</p>
+              <p>The critical flows are covered with both Playwright and Selenium, and the full suite runs on every push, every pull request and every night.</p>
+              <h4>What I did</h4>
+              <ul class="highlights">
+                <li>Built 16 Playwright tests and 5 Selenium tests, including negative and price-calculation checks</li>
+                <li>Structured the suite with the Page Object Model, chained pytest fixtures and data-driven parametrized tests</li>
+                <li>Set up a GitHub Actions matrix that runs the suite on Chromium, Firefox and a mobile viewport, keeping reports, screenshots and traces for failures</li>
+                <li>Extended the framework with a new page object and tests for the product details page</li>
+              </ul>
             </div>
+            <aside class="d-side">
+              <h4>Type</h4>
+              <p class="kind">Test automation framework</p>
+              <h4>Tools</h4>
+              <div class="tags"><span class="tag">Python</span><span class="tag">Playwright</span><span class="tag">Selenium</span><span class="tag">pytest</span><span class="tag">GitHub Actions</span><span class="tag">Page Object Model</span></div>
+              <h4>Links</h4>
+              <div class="links">
+                <a class="btn" href="https://github.com/Kaustubh3197/saucedemo-test-automation" target="_blank" rel="noopener">View repository</a>
+                <a class="btn" href="https://github.com/Kaustubh3197/saucedemo-test-automation/actions/workflows/tests.yml" target="_blank" rel="noopener">Live test runs</a>
+                <img src="https://github.com/Kaustubh3197/saucedemo-test-automation/actions/workflows/tests.yml/badge.svg?branch=main" alt="Test status" loading="lazy">
+              </div>
+            </aside>
           </div></div></div>
         </li>
-
+ 
         <li class="project test" id="cicd" data-bearing="304" data-range="0.82" data-short="CI/CD pipeline">
           <button class="row" type="button" aria-expanded="false" aria-controls="cicd-detail">
             <span class="bearing"><i></i><span class="brg">304°</span></span>
             <span>
               <span class="p-name">Task Tracker: CI/CD Pipeline with Live Deployment</span>
-              <span class="p-sum">A Flask web app shipped by a six-stage GitHub Actions pipeline that lints, tests, packages it in Docker, publishes the image and deploys it live, only when every check passes.</span>
+              <span class="p-sum">A Flask web app shipped by a six-stage GitHub Actions pipeline that tests, packages and deploys it, only when every check passes.</span>
             </span>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
           <div class="detail" id="cicd-detail"><div class="detail-inner"><div class="detail-body">
-            <p>A small task-tracking app used to build a complete delivery pipeline. Every change goes through pull-request checks; a merge to main is linted, tested on three Python versions, browser-tested, packaged and smoke-tested as a Docker image, published to GitHub Container Registry, and deployed to Render, followed by a check that the live site reports the new version.</p>
-            <ul class="highlights">
-              <li>Built a Flask app with 31 unit, API and Playwright tests, including a requirement test that blocked an out-of-spec change on its pull request</li>
-              <li>Designed a gated six-job GitHub Actions pipeline: lint, matrix tests, browser tests, Docker build and container smoke test, image publishing, and deployment</li>
-              <li>Deployed to Render through a secret deploy hook with auto-deploy and PR previews disabled, so only tested code on main can go live</li>
-              <li>Ran a production incident drill: diagnosed a production-only crash from server logs, restored service with a rollback, and fixed main with a revert</li>
-            </ul>
-            <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">GHCR</span><span class="tag">Render</span><span class="tag">pytest</span><span class="tag">Playwright</span></div>
-            <div class="links">
-              <a class="btn primary" href="https://task-tracker-kaustubh.onrender.com" target="_blank" rel="noopener">Open live demo</a>
-              <a class="btn" href="https://github.com/Kaustubh3197/task-tracker-cicd" target="_blank" rel="noopener">View repository</a>
-              <a class="btn" href="https://github.com/Kaustubh3197/task-tracker-cicd/actions/workflows/ci-cd.yml" target="_blank" rel="noopener">Pipeline runs</a>
-              <img src="https://github.com/Kaustubh3197/task-tracker-cicd/actions/workflows/ci-cd.yml/badge.svg?branch=main" alt="CI/CD pipeline status" loading="lazy">
+            <div class="d-main">
+              <h4>Overview</h4>
+              <p>A small task-tracking app used to build a complete delivery pipeline.</p>
+              <p>Every pull request is checked automatically. Every merge to main is linted, tested on three Python versions, browser-tested, packaged and smoke-tested in Docker, published, deployed to Render, and then the live site is checked for the new version.</p>
+              <h4>What I did</h4>
+              <ul class="highlights">
+                <li>Built a Flask app with 31 unit, API and Playwright tests, including a requirement test that blocked an out-of-spec change on its pull request</li>
+                <li>Designed a gated six-job GitHub Actions pipeline: lint, matrix tests, browser tests, Docker smoke test, image publishing and deployment</li>
+                <li>Deployed through a secret deploy hook with auto-deploy and PR previews disabled, so only tested code on main can go live</li>
+                <li>Ran a production incident drill: diagnosed a production-only crash from server logs, restored service with a rollback, and fixed main with a revert</li>
+              </ul>
             </div>
-            <p class="note">The demo runs on a free host, so the first visit can take about a minute while the server wakes up.</p>
+            <aside class="d-side">
+              <h4>Type</h4>
+              <p class="kind">CI/CD pipeline with live app</p>
+              <h4>Tools</h4>
+              <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">GHCR</span><span class="tag">Render</span><span class="tag">pytest</span><span class="tag">Playwright</span></div>
+              <h4>Links</h4>
+              <div class="links">
+                <a class="btn primary" href="https://task-tracker-kaustubh.onrender.com" target="_blank" rel="noopener">Open live demo</a>
+                <a class="btn" href="https://github.com/Kaustubh3197/task-tracker-cicd" target="_blank" rel="noopener">View repository</a>
+                <a class="btn" href="https://github.com/Kaustubh3197/task-tracker-cicd/actions/workflows/ci-cd.yml" target="_blank" rel="noopener">Pipeline runs</a>
+                <img src="https://github.com/Kaustubh3197/task-tracker-cicd/actions/workflows/ci-cd.yml/badge.svg?branch=main" alt="CI/CD pipeline status" loading="lazy">
+              </div>
+              <p class="note">The demo runs on a free host, so the first visit can take about a minute while the server wakes up.</p>
+            </aside>
           </div></div></div>
         </li>
-
+ 
       </ul>
     </div>
   </section>
-
+ 
   <!-- ===== Toolkit ===== -->
   <section class="section" id="toolkit">
     <div class="wrap">
@@ -500,7 +579,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- ===== Contact ===== -->
   <section class="section contact" id="contact">
     <div class="wrap">
@@ -514,18 +593,18 @@
       </div>
     </div>
   </section>
-
+ 
 </main>
-
+ 
 <footer class="small"><div class="wrap">© 2026 Kaustubh Patil</div></footer>
-
+ 
 <script>
 (function(){
   var root = document.documentElement;
   var SWEEP_S = 8;
   var CX = 120, R = 108;
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+ 
   /* ---------- theme ---------- */
   var themeBtn = document.getElementById('themeBtn');
   function currentTheme(){
@@ -544,7 +623,7 @@
     applyTheme(next);
     try { localStorage.setItem('theme', next); } catch(e){}
   });
-
+ 
   /* ---------- radar ---------- */
   var scope = document.getElementById('scope');
   var sweep = document.getElementById('sweep');
@@ -553,7 +632,7 @@
   var blips = {};
   var selected = null;
   var currentAngle = 0;
-
+ 
   projects.forEach(function(p){
     var brg = parseFloat(p.dataset.bearing), rng = parseFloat(p.dataset.range);
     var rad = brg * Math.PI / 180;
@@ -563,7 +642,6 @@
     b.className = 'blip ' + (p.classList.contains('veh') ? 'veh' : 'test');
     b.style.setProperty('--x', (x / 240 * 100) + '%');
     b.style.setProperty('--y', (y / 240 * 100) + '%');
-    b.style.setProperty('--d', ((brg / 360) * SWEEP_S - SWEEP_S) + 's');
     var name = p.querySelector('.p-name').textContent;
     b.setAttribute('aria-label', 'Preview project: ' + name);
     b.innerHTML = '<span class="blip-tag" aria-hidden="true">' + p.dataset.short + '</span>';
@@ -571,7 +649,7 @@
     scope.appendChild(b);
     blips[p.id] = b;
   });
-
+ 
   function sweepAngleNow(){
     var t = getComputedStyle(sweep).transform;
     if (!t || t === 'none') return currentAngle;
@@ -598,13 +676,13 @@
     sweep.style.transform = '';
     sweep.style.animationDelay = reduceMotion ? '' : (-(resume / 360) * SWEEP_S) + 's';
   }
-
+ 
   function highlight(id, on){
     var p = document.getElementById(id);
     p.classList.toggle('hl', on);
     blips[id].classList.toggle('active', on || id === selected);
   }
-
+ 
   function select(id){
     if (selected && selected !== id) { blips[selected].classList.remove('active'); }
     selected = id;
@@ -620,7 +698,24 @@
     readout.querySelector('p:not(.readout-domain)').textContent = p.querySelector('.p-sum').textContent;
     readout.querySelector('.text-btn').addEventListener('click', function(){ openProject(id, true); });
   }
-
+ 
+  /* ---------- names appear as the sweep passes each signal ---------- */
+  var SHOW_FOR = 70; // degrees of sweep travel (~1.5 s) that a name stays visible
+  function tick(){
+    if (!sweep.classList.contains('locked')) {
+      var a = sweepAngleNow();
+      projects.forEach(function(p){
+        var behind = ((a - parseFloat(p.dataset.bearing)) % 360 + 360) % 360;
+        var on = behind < SHOW_FOR && !p.hidden;
+        blips[p.id].classList.toggle('swept', on);
+      });
+    } else {
+      projects.forEach(function(p){ blips[p.id].classList.remove('swept'); });
+    }
+    requestAnimationFrame(tick);
+  }
+  if (!reduceMotion) requestAnimationFrame(tick);
+ 
   /* ---------- project rows ---------- */
   function setOpen(p, open){
     p.classList.toggle('open', open);
@@ -646,7 +741,7 @@
     p.addEventListener('mouseenter', function(){ highlight(p.id, true); pointAt(parseFloat(p.dataset.bearing)); });
     p.addEventListener('mouseleave', function(){ highlight(p.id, false); release(); });
   });
-
+ 
   /* ---------- filters ---------- */
   var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.filter'));
   var sectors = { veh: document.getElementById('sectorVeh'), test: document.getElementById('sectorTest') };
@@ -661,7 +756,7 @@
     sectors.test.style.opacity = (f === 'veh') ? '.12' : '';
   }
   filterBtns.forEach(function(b){ b.addEventListener('click', function(){ setFilter(b.dataset.filter); }); });
-
+ 
   /* ---------- deep link (#project) ---------- */
   var hash = location.hash.replace('#','');
   if (hash && document.getElementById(hash) && document.getElementById(hash).classList.contains('project')) {
@@ -671,3 +766,5 @@
 </script>
 </body>
 </html>
+ 
+Claude finished the response
