@@ -48,7 +48,7 @@
     --amber:#f0a445; --amber-soft:#3a2a14; --blue:#7f9ff0; --blue-soft:#1d2a4a;
     --scope-bg:#122029; --focus:#3cc0aa;
   }
- 
+
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;scroll-padding-top:76px;}
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
@@ -66,7 +66,7 @@
   :focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
   .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
- 
+
   /* ---------- header ---------- */
   .bar{
     position:sticky;top:0;z-index:20;
@@ -88,7 +88,7 @@
   .theme-btn .moon{display:none;}
   :root[data-theme="dark"] .theme-btn .sun{display:none;}
   :root[data-theme="dark"] .theme-btn .moon{display:block;}
- 
+
   /* ---------- hero ---------- */
   .hero{padding:64px 0 56px;}
   .name{
@@ -121,7 +121,7 @@
   .btn.primary{background:var(--teal);border-color:var(--teal);color:var(--teal-ink);}
   .btn.primary:hover{filter:brightness(1.08);color:var(--teal-ink);}
   .btn svg{width:16px;height:16px;}
- 
+
   /* ---------- radar ---------- */
   .scope-panel{display:flex;flex-direction:column;align-items:center;gap:16px;}
   .scope{position:relative;width:min(380px,100%);aspect-ratio:1;}
@@ -140,7 +140,7 @@
   .sweep-line{stroke:var(--teal);stroke-width:1.6;}
   .sweep-fade{fill:url(#sweepGrad);}
   @keyframes sweep{from{transform:rotate(0)}to{transform:rotate(360deg)}}
- 
+
   .blip{
     position:absolute;left:var(--x);top:var(--y);
     width:30px;height:30px;margin:-15px 0 0 -15px;
@@ -175,7 +175,7 @@
     .sweep{animation:none;}
     .blip::before{opacity:1;}
   }
- 
+
   .readout{
     width:min(380px,100%);min-height:188px;
     background:var(--surface);border:1px solid var(--line);border-radius:14px;
@@ -190,12 +190,12 @@
     background:none;border:0;padding:0;font:inherit;font-weight:600;font-size:15px;
     color:var(--teal);cursor:pointer;text-decoration:underline;text-underline-offset:3px;
   }
- 
+
   /* ---------- sections ---------- */
   .section{padding:64px 0;border-top:1px solid var(--line);}
   h2{font-size:clamp(26px,3.4vw,34px);font-weight:700;font-stretch:112%;line-height:1.15;}
   .section-intro{color:var(--muted);max-width:60ch;margin-top:8px;}
- 
+
   .work-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px;}
   .filters{display:flex;gap:6px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;flex-wrap:wrap;}
   .filter{
@@ -206,7 +206,7 @@
   .filter .count{font-weight:500;opacity:.8;}
   .filter[aria-pressed="true"]{background:var(--ink);color:var(--paper);}
   .filter i{width:8px;height:8px;border-radius:50%;background:var(--c);display:inline-block;}
- 
+
   .projects{list-style:none;border-top:1px solid var(--line);}
   .project{border-bottom:1px solid var(--line);transition:background .2s;}
   .project.hl{background:color-mix(in srgb, var(--c) 7%, transparent);}
@@ -225,7 +225,7 @@
   .chev{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;margin-top:2px;transition:transform .3s,background .2s;}
   .chev svg{width:16px;height:16px;}
   .project.open .chev{transform:rotate(180deg);background:var(--surface);}
- 
+
   .detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease;}
   .project.open .detail{grid-template-rows:1fr;}
   .detail-inner{overflow:hidden;}
@@ -250,18 +250,19 @@
   .d-side .links .btn{width:100%;justify-content:center;}
   .figure img{border:1px solid var(--line);border-radius:10px;}
   .figure figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;}
- 
+
   /* ---------- toolkit ---------- */
   .toolkit{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:28px;}
   .toolkit h3{font-size:16px;font-weight:700;margin-bottom:12px;}
   .chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;}
   .chips li{font-size:14px;padding:5px 11px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);}
- 
+
   /* ---------- contact ---------- */
-  .contact .wrap{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;}
-  .contact p{color:var(--muted);max-width:52ch;margin-top:8px;}
+  .contact .wrap{display:block;}
+  .contact p{color:var(--muted);margin-top:10px;font-size:17px;text-wrap:balance;}
+  .contact .actions{margin-top:24px;}
   footer.small{padding:28px 0 40px;color:var(--muted);font-size:14px;}
- 
+
   /* ---------- responsive ---------- */
   @media (max-width:900px){
     .hero-grid{grid-template-columns:1fr;gap:44px;}
@@ -291,7 +292,7 @@
 </style>
 </head>
 <body>
- 
+
 <header class="bar">
   <div class="wrap">
     <a href="#top" class="brand">Kaustubh Patil</a>
@@ -306,9 +307,9 @@
     </button>
   </div>
 </header>
- 
+
 <main id="top">
- 
+
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="wrap">
@@ -316,12 +317,12 @@
       <p class="role">Automotive &amp; Robotics Development Engineer | Test Automation &amp; CI/CD</p>
       <div class="hero-grid">
         <div class="intro">
-          <p class="lede">I build and benchmark the systems that let vehicles sense, communicate and act:</p>
+          <p class="lede">I build the systems that let vehicles sense, communicate, act, and prove they work:</p>
           <ul class="focus">
-            <li><b>Embedded control</b> that drives motors and sensors</li>
-            <li><b>ROS perception pipelines</b> that turn sensor data into objects</li>
-            <li><b>In-vehicle middleware</b> that carries data between them</li>
-            <li><b>Test automation and CI/CD</b> that check every change</li>
+            <li><b>Sense:</b> ROS perception pipelines that turn radar data into objects</li>
+            <li><b>Communicate:</b> middleware that links vehicle software: DDS, SOME/IP and Zenoh</li>
+            <li><b>Act:</b> embedded control that drives motors from sensor input</li>
+            <li><b>Prove:</b> test automation and CI/CD that check every change</li>
           </ul>
           <div class="actions">
             <a class="btn primary" href="#work">View projects</a>
@@ -361,7 +362,7 @@
       </div>
     </div>
   </section>
- 
+
   <!-- ===== Work ===== -->
   <section class="section" id="work">
     <div class="wrap">
@@ -376,15 +377,15 @@
           <button class="filter" type="button" data-filter="test" aria-pressed="false" style="--c:var(--blue)"><i></i>Testing &amp; delivery <span class="count">2</span></button>
         </div>
       </div>
- 
+
       <ul class="projects" id="projects">
- 
+
         <li class="project veh" id="middleware" data-bearing="40" data-range="0.74" data-short="Middleware thesis">
           <button class="row" type="button" aria-expanded="false" aria-controls="middleware-detail">
             <span class="bearing"><i></i><span class="brg">040°</span></span>
             <span>
               <span class="p-name">Middleware Comparison for ADAS / SDV</span>
-              <span class="p-sum">Benchmarking OpenDDS, vsomeip and Zenoh on the same simulated ADAS workload to find the best in-vehicle communication middleware.</span>
+              <span class="p-sum">Benchmarking OpenDDS, vSomeIP and Zenoh on the same simulated ADAS workload to find the best in-vehicle communication middleware.</span>
             </span>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
@@ -396,15 +397,15 @@
               <h4>What I did</h4>
               <ul class="highlights">
                 <li>Scored 8 candidate protocols using a multi-criteria decision analysis (MCDA)</li>
-                <li>Built matching proof-of-concept implementations in OpenDDS, vsomeip and Zenoh</li>
-                <li>Reproduced the same 7-node ADAS scenario and timing budgets in all three, isolating middleware-only performance differences</li>
+                <li>Built matching proof-of-concept implementations in OpenDDS, vSomeIP and Zenoh</li>
+                <li>Ran the exact same simulated ADAS setup (7 software components with the same timing limits) on all three, so any difference in the results comes from the middleware alone</li>
               </ul>
             </div>
             <aside class="d-side">
               <h4>Type</h4>
               <p class="kind">Master&#x27;s thesis</p>
               <h4>Tools</h4>
-              <div class="tags"><span class="tag">OpenDDS</span><span class="tag">vsomeip / SOME-IP</span><span class="tag">Eclipse Zenoh</span><span class="tag">MCDA</span><span class="tag">C++</span><span class="tag">Python</span></div>
+              <div class="tags"><span class="tag">OpenDDS</span><span class="tag">vSomeIP / SOME/IP</span><span class="tag">Eclipse Zenoh</span><span class="tag">MCDA</span><span class="tag">C++</span><span class="tag">Python</span></div>
               <h4>Links</h4>
               <div class="links">
                 <a class="btn" href="https://github.com/Kaustubh3197/middleware-comparison-thesis" target="_blank" rel="noopener">View repository</a>
@@ -412,26 +413,26 @@
             </aside>
           </div></div></div>
         </li>
- 
+
         <li class="project veh" id="v2x" data-bearing="100" data-range="0.5" data-short="V2X perception">
           <button class="row" type="button" aria-expanded="false" aria-controls="v2x-detail">
             <span class="bearing"><i></i><span class="brg">100°</span></span>
             <span>
               <span class="p-name">V2X CPM Perception &amp; Visualization Pipeline</span>
-              <span class="p-sum">A ROS pipeline that turns radar data into ETSI ITS Collective Perception Messages, filters false detections and shows the result live in RViz.</span>
+              <span class="p-sum">A ROS pipeline that filters radar detections, shows them live in RViz, and converts them into ETSI ITS Collective Perception Messages.</span>
             </span>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </button>
           <div class="detail" id="v2x-detail"><div class="detail-inner"><div class="detail-body">
             <div class="d-main">
               <h4>Overview</h4>
-              <p>The perception stage of a four-part university V2X project.</p>
-              <p>Radar data, live from a perception kit or replayed from rosbag files, is converted into standard Collective Perception Messages, cleaned of false detections, and drawn in RViz next to an ego-vehicle model.</p>
+              <p>The perception stage of a four-stage university V2X project.</p>
+              <p>Radar data, live from a perception kit or replayed from rosbag files, is first filtered to remove false detections, then visualized in RViz next to an ego-vehicle model, and finally converted into standard Collective Perception Messages (CPM).</p>
               <h4>What I did</h4>
               <ul class="highlights">
-                <li>Parsed radar data against roughly 130 custom ROS message definitions aligned to the ETSI ITS CPM standard</li>
                 <li>Filtered radar false positives using confidence-score and distance thresholds</li>
                 <li>Classified objects as cars or pedestrians and rendered them as live RViz markers</li>
+                <li>Converted the filtered objects into CPM messages using roughly 130 custom ROS message definitions aligned to the ETSI ITS standard</li>
               </ul>
               <figure class="figure"><img src="https://github.com/Kaustubh3197/v2x-cpm-perception/raw/main/docs/rviz_visualization.png" alt="RViz visualization comparing unfiltered radar detections to filtered, classified output" loading="lazy"><figcaption>Left: unfiltered detections. Right: filtered output, classified as cars and pedestrians.</figcaption></figure>
             </div>
@@ -448,7 +449,7 @@
             </aside>
           </div></div></div>
         </li>
- 
+
         <li class="project veh" id="gesture-car" data-bearing="148" data-range="0.82" data-short="Gesture-control car">
           <button class="row" type="button" aria-expanded="false" aria-controls="gesture-car-detail">
             <span class="bearing"><i></i><span class="brg">148°</span></span>
@@ -482,7 +483,7 @@
             </aside>
           </div></div></div>
         </li>
- 
+
         <li class="project test" id="test-automation" data-bearing="236" data-range="0.66" data-short="Test automation">
           <button class="row" type="button" aria-expanded="false" aria-controls="test-automation-detail">
             <span class="bearing"><i></i><span class="brg">236°</span></span>
@@ -519,7 +520,7 @@
             </aside>
           </div></div></div>
         </li>
- 
+
         <li class="project test" id="cicd" data-bearing="304" data-range="0.82" data-short="CI/CD pipeline">
           <button class="row" type="button" aria-expanded="false" aria-controls="cicd-detail">
             <span class="bearing"><i></i><span class="brg">304°</span></span>
@@ -536,7 +537,7 @@
               <p>Every pull request is checked automatically. Every merge to main is linted, tested on three Python versions, browser-tested, packaged and smoke-tested in Docker, published, deployed to Render, and then the live site is checked for the new version.</p>
               <h4>What I did</h4>
               <ul class="highlights">
-                <li>Built a Flask app with 31 unit, API and Playwright tests, including a requirement test that blocked an out-of-spec change on its pull request</li>
+                <li>Built a Flask app with 31 unit, API and Playwright tests, including a test I added that caught a wrong change to the title-length rule and stopped it from being merged</li>
                 <li>Designed a gated six-job GitHub Actions pipeline: lint, matrix tests, browser tests, Docker smoke test, image publishing and deployment</li>
                 <li>Deployed through a secret deploy hook with auto-deploy and PR previews disabled, so only tested code on main can go live</li>
                 <li>Ran a production incident drill: diagnosed a production-only crash from server logs, restored service with a rollback, and fixed main with a revert</li>
@@ -558,11 +559,11 @@
             </aside>
           </div></div></div>
         </li>
- 
+
       </ul>
     </div>
   </section>
- 
+
   <!-- ===== Toolkit ===== -->
   <section class="section" id="toolkit">
     <div class="wrap">
@@ -570,13 +571,13 @@
       <p class="section-intro">The languages and tools behind the projects above.</p>
       <div class="toolkit">
         <div><h3>Languages</h3><ul class="chips"><li>C++</li><li>Python</li></ul></div>
-        <div><h3>Vehicles &amp; robotics</h3><ul class="chips"><li>ROS</li><li>RViz</li><li>OpenDDS</li><li>SOME/IP (vsomeip)</li><li>Eclipse Zenoh</li><li>ETSI ITS CPM</li><li>Arduino</li></ul></div>
+        <div><h3>Vehicles &amp; robotics</h3><ul class="chips"><li>ROS</li><li>RViz</li><li>OpenDDS</li><li>SOME/IP (vSomeIP)</li><li>Eclipse Zenoh</li><li>ETSI ITS CPM</li><li>Arduino</li></ul></div>
         <div><h3>Testing</h3><ul class="chips"><li>pytest</li><li>Playwright</li><li>Selenium</li><li>Page Object Model</li></ul></div>
         <div><h3>Delivery</h3><ul class="chips"><li>GitHub Actions</li><li>Docker</li><li>GitHub Container Registry</li><li>Render</li><li>Git</li></ul></div>
       </div>
     </div>
   </section>
- 
+
   <!-- ===== Contact ===== -->
   <section class="section contact" id="contact">
     <div class="wrap">
@@ -590,18 +591,18 @@
       </div>
     </div>
   </section>
- 
+
 </main>
- 
+
 <footer class="small"><div class="wrap">© 2026 Kaustubh Patil</div></footer>
- 
+
 <script>
 (function(){
   var root = document.documentElement;
   var SWEEP_S = 8;
   var CX = 120, R = 108;
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- 
+
   /* ---------- theme ---------- */
   var themeBtn = document.getElementById('themeBtn');
   function currentTheme(){
@@ -620,7 +621,7 @@
     applyTheme(next);
     try { localStorage.setItem('theme', next); } catch(e){}
   });
- 
+
   /* ---------- radar ---------- */
   var scope = document.getElementById('scope');
   var sweep = document.getElementById('sweep');
@@ -629,7 +630,7 @@
   var blips = {};
   var selected = null;
   var currentAngle = 0;
- 
+
   projects.forEach(function(p){
     var brg = parseFloat(p.dataset.bearing), rng = parseFloat(p.dataset.range);
     var rad = brg * Math.PI / 180;
@@ -646,7 +647,7 @@
     scope.appendChild(b);
     blips[p.id] = b;
   });
- 
+
   function sweepAngleNow(){
     var t = getComputedStyle(sweep).transform;
     if (!t || t === 'none') return currentAngle;
@@ -673,13 +674,13 @@
     sweep.style.transform = '';
     sweep.style.animationDelay = reduceMotion ? '' : (-(resume / 360) * SWEEP_S) + 's';
   }
- 
+
   function highlight(id, on){
     var p = document.getElementById(id);
     p.classList.toggle('hl', on);
     blips[id].classList.toggle('active', on || id === selected);
   }
- 
+
   function select(id){
     if (selected && selected !== id) { blips[selected].classList.remove('active'); }
     selected = id;
@@ -695,7 +696,7 @@
     readout.querySelector('p:not(.readout-domain)').textContent = p.querySelector('.p-sum').textContent;
     readout.querySelector('.text-btn').addEventListener('click', function(){ openProject(id, true); });
   }
- 
+
   /* ---------- names appear as the sweep passes each signal ---------- */
   var SHOW_FOR = 70; // degrees of sweep travel (~1.5 s) that a name stays visible
   function tick(){
@@ -712,7 +713,7 @@
     requestAnimationFrame(tick);
   }
   if (!reduceMotion) requestAnimationFrame(tick);
- 
+
   /* ---------- project rows ---------- */
   function setOpen(p, open){
     p.classList.toggle('open', open);
@@ -738,7 +739,7 @@
     p.addEventListener('mouseenter', function(){ highlight(p.id, true); pointAt(parseFloat(p.dataset.bearing)); });
     p.addEventListener('mouseleave', function(){ highlight(p.id, false); release(); });
   });
- 
+
   /* ---------- filters ---------- */
   var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.filter'));
   var sectors = { veh: document.getElementById('sectorVeh'), test: document.getElementById('sectorTest') };
@@ -753,7 +754,7 @@
     sectors.test.style.opacity = (f === 'veh') ? '.12' : '';
   }
   filterBtns.forEach(function(b){ b.addEventListener('click', function(){ setFilter(b.dataset.filter); }); });
- 
+
   /* ---------- deep link (#project) ---------- */
   var hash = location.hash.replace('#','');
   if (hash && document.getElementById(hash) && document.getElementById(hash).classList.contains('project')) {
