@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kaustubh Patil — Development Engineer, Automotive Systems &amp; Robotics</title>
-<meta name="description" content="Kaustubh Patil, development engineer in automotive systems and robotics: in-vehicle middleware, V2X perception, embedded systems and test automation projects.">
+<meta name="description" content="Kaustubh Patil, development engineer in automotive systems and robotics: in-vehicle middleware, V2X perception, embedded systems, test automation and CI/CD projects.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kaustubh Patil — Development Engineer, Automotive Systems &amp; Robotics">
-<meta property="og:description" content="Projects in in-vehicle middleware, V2X perception, embedded systems and test automation.">
+<meta property="og:description" content="Projects in in-vehicle middleware, V2X perception, embedded systems, test automation and CI/CD.">
 <meta property="og:url" content="https://kaustubh3197.github.io/">
 <meta name="theme-color" content="#1f7a6c">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%231f7a6c' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%231f7a6c' stroke-width='2'/%3E%3Cline x1='16' y1='16' x2='16' y2='2' stroke='%231f7a6c' stroke-width='2'/%3E%3Ccircle cx='23' cy='9' r='2.5' fill='%23c9761f'/%3E%3C/svg%3E">
@@ -410,7 +410,7 @@
       </div>
 
       <div class="scope-wrap">
-        <div class="scope" role="img" aria-label="Radar scope with four signals, linked to the four projects below — hover a project to highlight its signal">
+        <div class="scope" role="img" aria-label="Radar scope with five signals, linked to the five projects below — hover a project to highlight its signal">
           <svg viewBox="0 0 230 230">
             <defs>
               <radialGradient id="sweepGradient" cx="0%" cy="0%" r="100%">
@@ -433,8 +433,9 @@
             <circle class="blip" id="blip-2" data-project="2" cx="70" cy="150" r="4"/>
             <circle class="blip" id="blip-3" data-project="3" cx="165" cy="160" r="4"/>
             <circle class="blip" id="blip-4" data-project="4" cx="72" cy="78" r="4"/>
+            <circle class="blip" id="blip-5" data-project="5" cx="186" cy="112" r="4"/>
 
-            <text class="scope-label" id="scopeLabel" x="115" y="205" text-anchor="middle">4 PROJECTS DETECTED</text>
+            <text class="scope-label" id="scopeLabel" x="115" y="205" text-anchor="middle">5 PROJECTS DETECTED</text>
           </svg>
         </div>
       </div>
@@ -463,7 +464,7 @@
               <span class="pill">Sensor Perception</span>
               <span class="pill">Embedded Systems</span>
               <span class="pill">C++ / Python</span>
-              <span class="pill">Test Automation &amp; CI</span>
+              <span class="pill">Test Automation &amp; CI/CD</span>
             </div>
           </div>
         </div>
@@ -475,7 +476,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Selected work</h2>
-        <span class="section-count mono">04 repositories</span>
+        <span class="section-count mono">05 repositories</span>
       </div>
 
       <div class="project open reveal" data-project="1">
@@ -627,6 +628,51 @@
         </div></div>
       </div>
 
+      <div class="project reveal" data-project="5">
+        <button class="project-summary-btn" aria-expanded="false">
+          <span class="project-index mono">05</span>
+          <span>
+            <span class="project-name">Task Tracker: CI/CD Pipeline with Live Deployment</span>
+            <span class="project-summary">A Flask web app shipped by a six-stage GitHub Actions pipeline that lints, tests, packages it in Docker, publishes the image and deploys it live, only when every check passes.</span>
+          </span>
+          <span class="project-toggle mono"><span class="plus">+ expand</span><span class="minus">− collapse</span></span>
+        </button>
+        <div class="project-collapse"><div class="project-collapse-inner">
+          <div class="project-body">
+            <p>
+              A small task-tracking app used to build a complete delivery pipeline. Every change goes
+              through pull-request checks; a merge to main is linted, tested on three Python versions,
+              browser-tested, packaged and smoke-tested as a Docker image, published to GitHub Container
+              Registry, and deployed to Render, followed by a check that the live site reports the new
+              version.
+            </p>
+            <ul class="highlights">
+              <li>Built a Flask app with 31 unit, API and Playwright tests, including a requirement test that blocked an out-of-spec change on its pull request</li>
+              <li>Designed a gated six-job GitHub Actions pipeline: lint, matrix tests, browser tests, Docker build and container smoke test, image publishing, and deployment</li>
+              <li>Deployed to Render through a secret deploy hook with auto-deploy and PR previews disabled, so only tested code on main can go live</li>
+              <li>Ran a production incident drill: diagnosed a production-only crash from server logs, restored service with a rollback, and fixed main with a revert</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Flask</span>
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">Docker</span>
+              <span class="tag">GHCR</span>
+              <span class="tag">Render</span>
+              <span class="tag">pytest</span>
+              <span class="tag">Playwright</span>
+            </div>
+            <div class="project-links">
+              <a href="https://task-tracker-kaustubh.onrender.com" target="_blank" rel="noopener">Live demo</a>
+              <a href="https://github.com/Kaustubh3197/task-tracker-cicd" target="_blank" rel="noopener">View repository</a>
+              <a href="https://github.com/Kaustubh3197/task-tracker-cicd/actions/workflows/ci-cd.yml" target="_blank" rel="noopener">Pipeline runs</a>
+              <img src="https://github.com/Kaustubh3197/task-tracker-cicd/actions/workflows/ci-cd.yml/badge.svg?branch=main" alt="CI/CD pipeline status" height="20" loading="lazy">
+            </div>
+            <div class="project-image-caption">The live demo runs on a free host: the first visit can take about a minute while the server wakes up.</div>
+          </div>
+        </div></div>
+      </div>
+
     </div>
   </section>
 
@@ -674,7 +720,8 @@
     '1': document.getElementById('blip-1'),
     '2': document.getElementById('blip-2'),
     '3': document.getElementById('blip-3'),
-    '4': document.getElementById('blip-4')
+    '4': document.getElementById('blip-4'),
+    '5': document.getElementById('blip-5')
   };
   var blipAngles = {};
   Object.keys(blips).forEach(function(key){
@@ -690,7 +737,8 @@
     '1': 'MIDDLEWARE THESIS',
     '2': 'V2X CPM PERCEPTION',
     '3': 'GESTURE CONTROL CAR',
-    '4': 'TEST AUTOMATION'
+    '4': 'TEST AUTOMATION',
+    '5': 'CI/CD PIPELINE'
   };
 
   var SWEEP_SECONDS = 7;
@@ -735,7 +783,7 @@
     // carry on sweeping from where it stopped instead of jumping back to the top
     sweepGroup.style.animationDelay = reduceMotion ? '' : (-(resumeFrom / 360) * SWEEP_SECONDS) + 's';
     Object.values(blips).forEach(function(b){ b.classList.remove('active'); });
-    scopeLabel.textContent = '4 PROJECTS DETECTED';
+    scopeLabel.textContent = '5 PROJECTS DETECTED';
   }
 
   document.querySelectorAll('.project').forEach(function(project){
